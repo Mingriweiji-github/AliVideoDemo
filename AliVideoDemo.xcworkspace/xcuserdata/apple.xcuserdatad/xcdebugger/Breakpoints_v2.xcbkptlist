@@ -102,31 +102,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/RecordView/AliyunRecordCameraView.m"
-            timestampString = "580471869.01554"
+            timestampString = "580475263.2248091"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "-cancelRecordBeautyView"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/RecordView/AliyunRecordCameraView.m"
-            timestampString = "580471869.015609"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
             landmarkName = "-getGifPictureView"
             landmarkType = "7">
          </BreakpointContent>
@@ -134,16 +118,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/RecordView/AliyunRecordCameraView.m"
-            timestampString = "580471869.015662"
+            timestampString = "580475263.2248991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
-            landmarkName = "-beauty"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "-leftView"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -154,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/RecordView/AliyunRecordBeautyView.m"
-            timestampString = "580471869.015712"
+            timestampString = "580475263.224974"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "330"
@@ -170,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/RecordView/AliyunRecordBeautyView.m"
-            timestampString = "580471869.015769"
+            timestampString = "580475263.225031"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "209"
@@ -198,27 +182,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../Downloads/ApsaraVideo_shortVideoST_v3.9.0_iOS_20190419/demo/AliyunVideoClient_Entrance/AlivcAbstraction/AlivcBeaitufySettingsPanel/AlivcLiveBeautifySettingsView.m"
-            timestampString = "580471869.015856"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "-showDetailView"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/RecordView/AliyunRecordBeautyView.m"
-            timestampString = "580471869.015926"
+            timestampString = "580475263.225117"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "424"
@@ -234,13 +202,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/RecordView/AliyunRecordBeautyView.m"
-            timestampString = "580471869.015976"
+            timestampString = "580475263.225168"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "441"
             endingLineNumber = "441"
             landmarkName = "-settingsViewController:didChangeLevel:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/RecordView/AliyunRecordCameraView.m"
+            timestampString = "580475263.225226"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
+            landmarkName = "@implementation AliyunRecordCameraView"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

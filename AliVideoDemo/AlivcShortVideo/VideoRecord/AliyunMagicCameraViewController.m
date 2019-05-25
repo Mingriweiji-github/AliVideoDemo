@@ -314,8 +314,9 @@
  设置UI
  */
 - (void)configBaseUI{
-    self.magicCameraView = [[AliyunMagicCameraView alloc] initWithUIConfig:self.uiConfig];
-    
+//    self.magicCameraView = [[AliyunMagicCameraView alloc] initWithUIConfig:self.uiConfig];
+    self.magicCameraView = [[AliyunRecordCameraView alloc] initWithUIConfig:self.uiConfig];
+
     [AliyunIConfig config].recordType = AliyunIRecordActionTypeClick;
 
     self.magicCameraView.delegate = (id)self;

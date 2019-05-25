@@ -11,7 +11,12 @@
 #import "AlivcUIConfig.h"
 #import "AliyunRecordBeautyView.h"
 #import "AlivcRecordFocusView.h"
-
+#import "_AlivcLiveBeautifyDetailView.h"
+#import "_AlivcLiveBeautifyLevelView.h"
+#import "_AlivcLiveBeautifySliderView.h"
+#import "_AlivcLiveBeautifyNavigationView.h"
+#import "NSString+AlivcHelper.h"
+#import "Masonry.h"
 @interface AliyunRecordCameraView()<RecordCameraViewDelegate>
 
 @property (nonatomic, strong)UILabel *timeLabel;
@@ -29,8 +34,27 @@
 
 @property (nonatomic, strong) AliyunRecordBeautyView *rightView;// 录制按钮右边的按钮
 @property (nonatomic, strong) AliyunRecordBeautyView *leftView;// 录制按钮左边的按钮
+
 @property (nonatomic, assign) double startTime;// 手指按下录制按钮的时间
 @property (nonatomic, assign)CFTimeInterval cameraIdButtonClickTime;
+
+/** 美颜等级视图 */
+@property (nonatomic, strong)_AlivcLiveBeautifyLevelView *levelView;
+
+/** 美颜微调视图 */
+@property (nonatomic, strong)_AlivcLiveBeautifyDetailView *detailView;
+
+@property (nonatomic, strong) UIView *contentView;
+
+@property (nonatomic, strong) _AlivcLiveBeautifySliderView *sliderView;
+
+@property (nonatomic, assign) BOOL detailIsShow;
+
+@property (nonatomic, strong) NSMutableDictionary *selectInfo;
+
+@property (nonatomic, strong)_AlivcLiveBeautifyNavigationView *navigationView;
+
+
 @end
 @implementation AliyunRecordCameraView
 - (instancetype)initWithUIConfig:(AlivcRecordUIConfig *)uiConfig{
@@ -54,13 +78,22 @@
     if(!_uiConfig){
         _uiConfig = [[AlivcRecordUIConfig alloc]init];
     }
-    self.topView = [[UIView alloc] initWithFrame:CGRectMake(0,(IPHONEX ? 44 : 0), CGRectGetWidth(self.bounds), 44+8)];
+    CGFloat topY = 18 + (IPHONEX ? 44 : 20);
+
+    self.topView = [[UIView alloc] initWithFrame:CGRectMake(ScreenWidth - 80,topY, 80, ScreenHeight - topY)];
     [self addSubview:self.topView];
     [self.topView addSubview:self.backButton];
     self.topView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.01];
     
     [self.topView addSubview:self.backButton];
+    
     [self.topView addSubview:self.cameraIdButton];
+    [self.cameraIdButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.topView);
+        make.centerX.equalTo(self.topView.mas_centerX);
+        make.width.height.mas_equalTo(44);
+    }];
+
     [self.topView addSubview:self.finishButton];
     [self.topView addSubview:self.musicButton];
     [self insertSubview:self.previewView atIndex:0];
@@ -90,9 +123,29 @@
     [self.beautyButton addTarget:self action:@selector(beauty) forControlEvents:UIControlEventTouchUpInside];
     self.beautyButton.frame = CGRectMake(0, 0, 40, 40);
     CGFloat y = self.circleBtn.center.y;
-    CGFloat x = ScreenWidth/2-120;
-    self.beautyButton.center = CGPointMake(x, y);
-    [self addSubview:self.beautyButton];
+//    CGFloat x = ScreenWidth/2-120;
+//    self.beautyButton.center = CGPointMake(x, y);
+//    [self addSubview:self.beautyButton];
+    [self.topView addSubview:_beautyButton];
+    [self.beautyButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.cameraIdButton.mas_bottom).offset(20);
+        make.right.equalTo(self.topView.mas_right).offset(-20);
+        make.centerX.equalTo(self.topView.mas_centerX);
+        make.width.height.mas_equalTo(44);
+    }];
+
+    UIButton *beautyDetailButton = [[UIButton alloc] init];
+    UIImage *img = [AlivcImage imageNamed:@"alivc_svEdit_filter"];
+    [beautyDetailButton setImage:img forState:UIControlStateNormal];
+    [beautyDetailButton setBackgroundColor:[UIColor clearColor]];
+    [beautyDetailButton addTarget:self action:@selector(showBeautyDetail) forControlEvents:UIControlEventTouchUpInside];
+    [self.topView addSubview:beautyDetailButton];
+    [beautyDetailButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.beautyButton.mas_bottom).offset(20);
+        make.right.equalTo(self.topView.mas_right).offset(-20);
+        make.centerX.equalTo(self.topView.mas_centerX);
+        make.width.height.mas_equalTo(44);
+    }];
     
     self.gifPictureButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.gifPictureButton setImage:_uiConfig.magicImage forState:UIControlStateNormal];
@@ -144,16 +197,6 @@
     [self.cameraIdButton setExclusiveTouch:YES];
 }
 #pragma mark - Getter -
-/**
- 美颜按钮的点击事件
- */
-- (void)beauty{
-    
-    self.beautyView = self.leftView;
-    [self addSubview:self.beautyView];
-    self.bottomHide = YES;
-    
-}
 - (AliyunRecordBeautyView *)leftView{
     if (!_leftView) {
         _leftView = [[AliyunRecordBeautyView alloc] initWithFrame:CGRectMake(0, ScreenHeight-180-78-SafeAreaBottom, ScreenWidth, 180+78+SafeAreaBottom)  titleArray:@[@"滤镜",@"美颜",@"美肌"] imageArray:@[@"shortVideo_fliter",@"shortVideo_emotion",@"shortVideo_beautySkin"]];
@@ -174,7 +217,6 @@
 //        self.isFirst = YES;
 //    }
 }
-
 - (AliyunRecordBeautyView *)rightView{
     if (!_rightView) {
         _rightView = [[AliyunRecordBeautyView alloc] initWithFrame:CGRectMake(0, ScreenHeight-200, ScreenWidth, 200)  titleArray:@[@"人脸贴纸"] imageArray:@[@"shortVideo_gifPicture"]];
@@ -189,6 +231,109 @@
         [self.beautyView removeFromSuperview];
     }
     
+}
+- (void)setupBeautyDetailView{
+    if (_detailView) {
+        [_detailView removeFromSuperview];
+        _detailView = nil;
+    }
+    if (_sliderView) {
+        _sliderView.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), 78.f);
+    }
+    _contentView.frame = CGRectMake(0,
+                                    78.f,
+                                    CGRectGetWidth(self.bounds),
+                                    CGRectGetHeight(self.bounds) - 78.f);
+    if (_levelView) {
+        CGRect frame = _contentView.bounds;
+        if (_detailIsShow) {
+            frame = CGRectMake(-frame.size.width, 0, frame.size.width, frame.size.height);
+        }
+        _levelView.frame = frame;
+    }
+//    if (_detailView) {
+//        CGRect frame = _contentView.bounds;
+//        if (!_detailIsShow) {
+//            frame = CGRectMake(frame.size.width, 0, frame.size.width, frame.size.height);
+//        }
+//        _detailView.frame = frame;
+//    }
+    
+    CGRect frame = _contentView.bounds;
+    _detailView = [[_AlivcLiveBeautifyDetailView alloc] initWithFrame:CGRectOffset(frame, CGRectGetWidth(frame), 0)];
+    _detailView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.88];
+    _detailView.delegate = self;//_AlivcLiveBeautifyDetailViewDelegate
+    _detailView.dataSource = self;//_AlivcLiveBeautifyDetailViewDataSource
+
+}
+#pragma mark Actions
+#pragma mark 美颜
+- (void)showBeautyDetail{
+    
+    [self setupBeautyDetailView];
+    
+    __weak typeof(self) weakSelf = self;
+    [_detailView.navigationView setLeftImage:[AlivcImage imageNamed:@"avcBackIcon"]
+                                       title:[@"Face Filter" localString]
+                                      action:^(_AlivcLiveBeautifyNavigationView *sender) {
+                                          [weakSelf.sliderView removeFromSuperview];
+                                          weakSelf.sliderView = nil;
+                                          [weakSelf showLevelView];
+                                      }];
+    
+    [_detailView.navigationView setRightImage:[AlivcImage imageNamed:@"ic_reset"]
+                                       action:^(_AlivcLiveBeautifyNavigationView *sender) {
+                                           [weakSelf _resetSlider];
+                                       }];
+    
+    [_contentView addSubview:_detailView];
+    [_detailView reloadData];
+    
+    self.detailIsShow = YES;
+    CGRect frame = _contentView.bounds;
+
+    [UIView animateWithDuration:0.27f
+                     animations:^{
+                         self->_detailView.frame = frame;
+                         self->_levelView.frame = CGRectOffset(frame, -CGRectGetWidth(frame), 0);
+                     } completion:^(BOOL finished) {
+                         self->_detailView.frame = frame;
+                         self->_levelView.frame = CGRectOffset(frame, -CGRectGetWidth(frame), 0);
+                         self->_levelView.hidden = YES;
+                         [self->_detailView setDefaultValue];
+                         //                         [self bringSubviewToFront:self->_detailView];
+                     }];
+}
+- (_AlivcLiveBeautifyNavigationView *)navigationView {
+    return _navigationView;
+}
+- (void)showLevelView {
+    CGRect frame = _contentView.bounds;
+    self.detailIsShow = NO;
+    self.levelView.hidden = NO;
+    [UIView animateWithDuration:0.27f
+                     animations:^{
+                         self->_levelView.frame = frame;
+                         self->_detailView.frame = CGRectOffset(frame, CGRectGetWidth(frame), 0);
+                     } completion:^(BOOL finished) {
+                         self->_levelView.frame = frame;
+                         self->_detailView.frame = CGRectOffset(frame, CGRectGetWidth(frame), 0);
+                     }];
+}
+- (void)_resetSlider {
+    if (_sliderView) {
+        _sliderView.value = _sliderView.originalValue;
+    }
+    if ([self.sliderView.delegate respondsToSelector:@selector(sliderViewTouchDidCancel:)]) {
+        [self.sliderView.delegate sliderViewTouchDidCancel:self.sliderView];
+    }
+}
+
+#pragma mark 滤镜
+- (void)beauty{
+    self.beautyView = self.leftView;
+    [self addSubview:self.beautyView];
+    self.bottomHide = YES;
 }
 #pragma mark 录制相关
 - (void)recordButtonTouchUp {
@@ -424,8 +569,6 @@
     self.focusView.center = point;
     [self.previewView bringSubviewToFront:self.focusView];
 }
-
-#pragma mark Actions
 - (void)musicButtonClicked:(id)sender
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(musicButtonClicked)]) {
