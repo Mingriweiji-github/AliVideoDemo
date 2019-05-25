@@ -309,15 +309,13 @@
 
 - (AliyunRecordBeautyView *)leftView{
     if (!_leftView) {
-        NSArray *titles = @[@"滤镜"];//,@"美颜",@"美肌"
-        NSArray *imagesArr = @[@"shortVideo_fliter"];//,@"shortVideo_emotion",@"shortVideo_beautySkin"
+        NSArray *titles = @[@"滤镜",@"美颜"];//,@"美肌"
+        NSArray *imagesArr = @[@"shortVideo_fliter",@"shortVideo_emotion"];//,@"shortVideo_beautySkin"
         _leftView = [[AliyunRecordBeautyView alloc] initWithFrame:CGRectMake(0, ScreenHeight-180-78-SafeAreaBottom, ScreenWidth, 180+78+SafeAreaBottom)  titleArray:titles imageArray:imagesArr];
         _leftView.delegate = self;
     }
     return _leftView;
 }
-
-
 - (AliyunRecordBeautyView *)rightView{
     if (!_rightView) {
         _rightView = [[AliyunRecordBeautyView alloc] initWithFrame:CGRectMake(0, ScreenHeight-200, ScreenWidth, 200)  titleArray:@[@"人脸贴纸"] imageArray:@[@"shortVideo_gifPicture"]];

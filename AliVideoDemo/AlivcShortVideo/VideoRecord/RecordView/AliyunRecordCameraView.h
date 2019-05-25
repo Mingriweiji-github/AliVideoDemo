@@ -17,6 +17,14 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol RecordCameraViewDelegate <NSObject>
 
 /**
+ 选中某滤镜、动图
+ 
+ @param index 序号
+ @param cell cell对象
+ */
+- (void)effectItemFocusToIndex:(NSInteger)index cell:(UICollectionViewCell *)cell;
+
+/**
  返回按钮被点击的代理方法
  */
 - (void)backButtonClicked;

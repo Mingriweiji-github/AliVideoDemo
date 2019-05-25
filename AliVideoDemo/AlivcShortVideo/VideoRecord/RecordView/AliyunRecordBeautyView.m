@@ -225,13 +225,9 @@ typedef enum : NSUInteger {
         _filterView = [[AlivcRecordFliterView alloc] initWithFrame:CGRectMake(0, 50, ScreenWidth, 102)];
         _filterView.backgroundColor = [UIColor clearColor];
         _filterView.delegate = (id<AliyunEffectFilter2ViewDelegate>)self;
-        
     }
     return _filterView;
 }
-
-
-
 - (UIView *)beautyFaceView {
     if (!_beautyFaceView) {
         //默认档位
@@ -258,7 +254,6 @@ typedef enum : NSUInteger {
             NSInteger level = [self.beautyFaceDataManager_advanced getBeautyLevel];
             [self.beatyFaceSettingViewControl updateLevel:level];
         }
-        
         self.beatyFaceSettingViewControl.delegate = self;
         for (NSInteger i = 0; i < 3; i ++) {
             __block AliyunRecordBeautyView *weakSelf = self;
@@ -266,9 +261,7 @@ typedef enum : NSUInteger {
                 [weakSelf.toolView clickTithTag:i];
             } withTag:i];
         }
-        
         _beautyFaceView = self.beatyFaceSettingViewControl.view;
-        
     }
     return _beautyFaceView;
 }
@@ -427,8 +420,7 @@ typedef enum : NSUInteger {
     if(viewController == self.beatyFaceSettingViewControl){
         //美颜
         switch (viewController.currentStyle) {
-            case AlivcBeautySettingViewStyle_ShortVideo_BeautyFace_Advanced:
-            {
+            case AlivcBeautySettingViewStyle_ShortVideo_BeautyFace_Advanced:{
                 [_beautyFaceDataManager_advanced saveBeautyLevel:level];
                 AlivcPushBeautyParams *params = [_beautyFaceDataManager_advanced getBeautyParamsOfLevel:level];
                 //高级美颜

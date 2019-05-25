@@ -12,7 +12,7 @@
 #import "AliyunRecordBeautyView.h"
 #import "AlivcRecordFocusView.h"
 
-@interface AliyunRecordCameraView()
+@interface AliyunRecordCameraView()<RecordCameraViewDelegate>
 
 @property (nonatomic, strong)UILabel *timeLabel;
 
@@ -474,8 +474,7 @@
 }
 
 #pragma mark - MagicCameraScrollViewDelegate
-//- (void)focusItemIndex:(NSInteger)index cell:(UICollectionViewCell *)cell
-//{
+//- (void)focusItemIndex:(NSInteger)index cell:(UICollectionViewCell *)cell{
 //    if (self.delegate && [self.delegate respondsToSelector:@selector(effectItemFocusToIndex:cell:)]&&(!_recording) && self.beautyView) {
 //        [self.delegate effectItemFocusToIndex:index cell: cell];
 //    }
