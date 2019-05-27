@@ -234,25 +234,25 @@
     
     [self addSubview:self.progressView];
     
-    self.triangleImageView = [[UIImageView alloc] initWithImage:_uiConfig.triangleImage];
-    self.triangleImageView.center = CGPointMake(ScreenWidth/2, ScreenHeight-8-SafeBottom);
-    [self addSubview:self.triangleImageView];
+//    self.triangleImageView = [[UIImageView alloc] initWithImage:_uiConfig.triangleImage];
+//    self.triangleImageView.center = CGPointMake(ScreenWidth/2, ScreenHeight-8-SafeBottom);
+//    [self addSubview:self.triangleImageView];
     
     UIButton *tapButton = [[UIButton alloc] initWithFrame:CGRectMake(ScreenWidth/2-21, ScreenHeight-36-SafeBottom, 45, 20)];
-    [tapButton setTitle:@"单击拍" forState:UIControlStateNormal];
+//    [tapButton setTitle:@"单击拍" forState:UIControlStateNormal];
     [tapButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [tapButton addTarget:self action:@selector(tapButtonClick) forControlEvents:UIControlEventTouchUpInside];
     tapButton.titleLabel.font = [UIFont systemFontOfSize:14];
     self.tapButton = tapButton;
     [self addSubview:tapButton];
     
-    UIButton *longPressButton = [[UIButton alloc] initWithFrame:CGRectMake(ScreenWidth/2-21+72, ScreenHeight-36-SafeBottom, 45, 20)];
-    [longPressButton setTitle:@"长按拍" forState:UIControlStateNormal];
-    [longPressButton setTitleColor:AlivcOxRGB(0xc3c5c6) forState:UIControlStateNormal];
-    [longPressButton addTarget:self action:@selector(longPressButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    longPressButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    self.longPressButton = longPressButton;
-    [self addSubview:longPressButton];
+//    UIButton *longPressButton = [[UIButton alloc] initWithFrame:CGRectMake(ScreenWidth/2-21+72, ScreenHeight-36-SafeBottom, 45, 20)];
+//    [longPressButton setTitle:@"长按拍" forState:UIControlStateNormal];
+//    [longPressButton setTitleColor:AlivcOxRGB(0xc3c5c6) forState:UIControlStateNormal];
+//    [longPressButton addTarget:self action:@selector(longPressButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    longPressButton.titleLabel.font = [UIFont systemFontOfSize:14];
+//    self.longPressButton = longPressButton;
+//    [self addSubview:longPressButton];
     
     [self setExclusiveTouchInButtons];
 }
