@@ -13,7 +13,7 @@
 //#import "UIButton+Tool.h"
 #import "AlivcRecordFocusView.h"
 #import "UIImageView+WebCache.h"
-
+#import "UIColor+AlivcHelper.h"
 #define finishBtnX  (CGRectGetWidth(self.bounds) - 58 - 10)
 
 @interface AliyunMagicCameraView ()<AliyunRecordBeautyViewDelegate>
@@ -787,7 +787,8 @@
         _progressView = [[QUProgressView alloc] initWithFrame:CGRectMake(10, IPHONEX ? 43 : 5, CGRectGetWidth(self.bounds) - 20, 4)];
         _progressView.showBlink = NO;
         _progressView.showNoticePoint = YES;
-        _progressView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.01];
+        _progressView.colorProgress = [UIColor colorWithHexString:@"#FD3B81"];
+        _progressView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
         _progressView.layer.cornerRadius = 2;
         _progressView.layer.masksToBounds = YES;
     }
