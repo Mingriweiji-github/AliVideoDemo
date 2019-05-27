@@ -17,7 +17,9 @@
 #import "_AlivcLiveBeautifyNavigationView.h"
 #import "NSString+AlivcHelper.h"
 #import "Masonry.h"
-@interface AliyunRecordCameraView()<RecordCameraViewDelegate>
+#import "AlivcPushBeautyDataManager.h"
+#import "AlivcLiveBeautifySettingsViewController.h"
+@interface AliyunRecordCameraView()<RecordCameraViewDelegate,_AlivcLiveBeautifyDetailViewDelegate,_AlivcLiveBeautifyDetailViewDataSource>
 
 @property (nonatomic, strong)UILabel *timeLabel;
 
@@ -44,6 +46,13 @@
 /** 美颜微调视图 */
 @property (nonatomic, strong)_AlivcLiveBeautifyDetailView *detailView;
 
+/** 美颜视图 **/
+@property (nonatomic, strong) UIView *beautyFaceView;
+@property (nonatomic, strong) AlivcLiveBeautifySettingsViewController *beatyFaceSettingViewControl;//高级美颜界面
+
+@property (nonatomic, strong) AlivcPushBeautyDataManager *beautyFaceDataManager_advanced;//高级美颜的数据管理器
+
+
 @property (nonatomic, strong) UIView *contentView;
 
 @property (nonatomic, strong) _AlivcLiveBeautifySliderView *sliderView;
@@ -63,6 +72,8 @@
         _uiConfig = uiConfig;
         [AliyunIConfig config].recordType = AliyunIRecordActionTypeClick;
         [self setupSubview];
+        
+        _beautyFaceDataManager_advanced = [[AlivcPushBeautyDataManager alloc]initWithType:AlivcPushBeautyParamsTypeShortVideo customSaveString:@"beautyFaceDataManager_advanced"];
     }
     return self;
 }
@@ -116,11 +127,11 @@
     [self.circleBtn addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
     [self.circleBtn addTarget:self action:@selector(recordButtonTouchUpDragOutside) forControlEvents:UIControlEventTouchDragOutside];
     
-    
+    //美颜
     self.beautyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.beautyButton setImage:_uiConfig.faceImage forState:UIControlStateNormal];
     [self.beautyButton setBackgroundColor:[UIColor clearColor]];
-    [self.beautyButton addTarget:self action:@selector(beauty) forControlEvents:UIControlEventTouchUpInside];
+    [self.beautyButton addTarget:self action:@selector(showBeautyDetail) forControlEvents:UIControlEventTouchUpInside];
     self.beautyButton.frame = CGRectMake(0, 0, 40, 40);
     CGFloat y = self.circleBtn.center.y;
 //    CGFloat x = ScreenWidth/2-120;
@@ -138,7 +149,7 @@
     UIImage *img = [AlivcImage imageNamed:@"alivc_svEdit_filter"];
     [beautyDetailButton setImage:img forState:UIControlStateNormal];
     [beautyDetailButton setBackgroundColor:[UIColor clearColor]];
-    [beautyDetailButton addTarget:self action:@selector(showBeautyDetail) forControlEvents:UIControlEventTouchUpInside];
+    [beautyDetailButton addTarget:self action:@selector(beauty) forControlEvents:UIControlEventTouchUpInside];
     [self.topView addSubview:beautyDetailButton];
     [beautyDetailButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.beautyButton.mas_bottom).offset(20);
@@ -232,81 +243,50 @@
     }
     
 }
-- (void)setupBeautyDetailView{
-    if (_detailView) {
-        [_detailView removeFromSuperview];
-        _detailView = nil;
-    }
-    if (_sliderView) {
-        _sliderView.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), 78.f);
-    }
-    _contentView.frame = CGRectMake(0,
-                                    78.f,
-                                    CGRectGetWidth(self.bounds),
-                                    CGRectGetHeight(self.bounds) - 78.f);
-    if (_levelView) {
-        CGRect frame = _contentView.bounds;
-        if (_detailIsShow) {
-            frame = CGRectMake(-frame.size.width, 0, frame.size.width, frame.size.height);
-        }
-        _levelView.frame = frame;
-    }
-//    if (_detailView) {
-//        CGRect frame = _contentView.bounds;
-//        if (!_detailIsShow) {
-//            frame = CGRectMake(frame.size.width, 0, frame.size.width, frame.size.height);
-//        }
-//        _detailView.frame = frame;
-//    }
-    
-    CGRect frame = _contentView.bounds;
-    _detailView = [[_AlivcLiveBeautifyDetailView alloc] initWithFrame:CGRectOffset(frame, CGRectGetWidth(frame), 0)];
-    _detailView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.88];
-    _detailView.delegate = self;//_AlivcLiveBeautifyDetailViewDelegate
-    _detailView.dataSource = self;//_AlivcLiveBeautifyDetailViewDataSource
 
-}
 #pragma mark Actions
 #pragma mark 美颜
 - (void)showBeautyDetail{
-    
-    [self setupBeautyDetailView];
-    
-    __weak typeof(self) weakSelf = self;
-    [_detailView.navigationView setLeftImage:[AlivcImage imageNamed:@"avcBackIcon"]
-                                       title:[@"Face Filter" localString]
-                                      action:^(_AlivcLiveBeautifyNavigationView *sender) {
-                                          [weakSelf.sliderView removeFromSuperview];
-                                          weakSelf.sliderView = nil;
-                                          [weakSelf showLevelView];
-                                      }];
-    
-    [_detailView.navigationView setRightImage:[AlivcImage imageNamed:@"ic_reset"]
-                                       action:^(_AlivcLiveBeautifyNavigationView *sender) {
-                                           [weakSelf _resetSlider];
-                                       }];
-    
-    [_contentView addSubview:_detailView];
-    [_detailView reloadData];
-    
-    self.detailIsShow = YES;
-    CGRect frame = _contentView.bounds;
+    [self addSubview:self.beautyFaceView];
+//    self.frontView = self.beautyFaceView;
+}
 
-    [UIView animateWithDuration:0.27f
-                     animations:^{
-                         self->_detailView.frame = frame;
-                         self->_levelView.frame = CGRectOffset(frame, -CGRectGetWidth(frame), 0);
-                     } completion:^(BOOL finished) {
-                         self->_detailView.frame = frame;
-                         self->_levelView.frame = CGRectOffset(frame, -CGRectGetWidth(frame), 0);
-                         self->_levelView.hidden = YES;
-                         [self->_detailView setDefaultValue];
-                         //                         [self bringSubviewToFront:self->_detailView];
-                     }];
+- (UIView *)beautyFaceView {
+    if (!_beautyFaceView) {
+        //默认档位
+        
+        NSInteger level = [_beautyFaceDataManager_advanced getBeautyLevel];
+        //可供微调的选择
+        NSArray *dics = @[[_beautyFaceDataManager_advanced SkinPolishingDic],[_beautyFaceDataManager_advanced SkinWhiteningDic],[_beautyFaceDataManager_advanced SkinShiningDic]];
+        
+        self.beatyFaceSettingViewControl = [AlivcLiveBeautifySettingsViewController settingsViewControllerWithLevel:level detailItems:dics];
+        
+        //因为control没有展示在界面上，所有view手动设置frame
+        self.beatyFaceSettingViewControl.view.frame = CGRectMake(0, 0, ScreenWidth, self.frame.size.height);
+        
+        //设置高低级美颜
+        AlivcBeautySettingViewStyle style = [[NSUserDefaults standardUserDefaults] integerForKey:@"shortVideo_beautyType"];
+            [self.beatyFaceSettingViewControl setUIStyle:AlivcBeautySettingViewStyle_ShortVideo_BeautyFace_Advanced];
+            //设置档位
+            NSInteger clevel = [self.beautyFaceDataManager_advanced getBeautyLevel];
+            [self.beatyFaceSettingViewControl updateLevel:clevel];
+        
+        self.beatyFaceSettingViewControl.delegate = self;
+        for (NSInteger i = 0; i < 3; i ++) {
+            __block AliyunRecordBeautyView *weakSelf = self;
+            [self.beatyFaceSettingViewControl setAction:^{
+//                [weakSelf.toolView clickTithTag:i];
+            } withTag:i];
+        }
+        
+        _beautyFaceView = self.beatyFaceSettingViewControl.view;
+        
+    }
+    return _beautyFaceView;
 }
-- (_AlivcLiveBeautifyNavigationView *)navigationView {
-    return _navigationView;
-}
+
+
+
 - (void)showLevelView {
     CGRect frame = _contentView.bounds;
     self.detailIsShow = NO;

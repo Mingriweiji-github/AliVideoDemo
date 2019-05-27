@@ -16,7 +16,8 @@
 {
     if (self = [super initWithFrame:frame]) {
         
-        [self setBackgroundImage:[AlivcImage imageNamed:@"shortVideo_recordBtn_singleClick"] forState:UIControlStateNormal];
+//        [self setBackgroundImage:[AlivcImage imageNamed:@"shortVideo_recordBtn_singleClick"] forState:UIControlStateNormal];
+        [self setBackgroundImage:[UIImage imageNamed:@"shotVideo_start"] forState:UIControlStateNormal];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.titleLabel.font = [UIFont systemFontOfSize:14];
         self.backgroundColor = [UIColor clearColor];

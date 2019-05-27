@@ -9,7 +9,7 @@
 #import "AliyunResourceFontDownload.h"
 #import "AliyunEffectResourceModel.h"
 //#import "AliyunEffectFontManager.h"
-//#import "AliyunDBHelper.h"
+#import "AliyunDBHelper.h"
 #import <AliyunVideoSDKPro/AliyunHttpClient.h>
 //#import "ZipArchive.h"
 

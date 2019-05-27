@@ -21,49 +21,49 @@ typedef enum : NSUInteger {
 
 /**
  选中某个滤镜
-
+ 
  @param filter 滤镜数据模型
  */
 - (void)didSelectEffectFilter:(AliyunEffectFilterInfo *)filter;
 
 /**
  基础美颜的美颜值改变
-
+ 
  @param beautyValue 美颜值（1-100）
  */
 - (void)didChangeBeautyValue:(CGFloat)beautyValue;
 
 /**
  高级美颜的美白值改变
-
+ 
  @param beautyWhiteValue 高级美颜：美白参数值
  */
 - (void)didChangeAdvancedBeautyWhiteValue:(CGFloat)beautyWhiteValue;
 
 /**
  高级美颜的磨皮值改变
-
+ 
  @param blurValue 高级美颜：磨皮参数值
  */
 - (void)didChangeAdvancedBlurValue:(CGFloat)blurValue;
 
 /**
  高级美颜的红润值改变
-
+ 
  @param buddyValue 高级美颜：红润参数值
  */
 - (void)didChangeAdvancedBuddy:(CGFloat)buddyValue;
 
 /**
  美肌的大眼值改变
-
+ 
  @param bigEyeValue 美肌：大眼参数值
  */
 - (void)didChangeAdvancedBigEye:(CGFloat)bigEyeValue;
 
 /**
  美肌的瘦脸值改变
-
+ 
  @param slimFaceValue 美肌：瘦脸参数值
  */
 - (void)didChangeAdvancedSlimFace:(CGFloat)slimFaceValue;
@@ -71,7 +71,7 @@ typedef enum : NSUInteger {
 
 /**
  选中某个人脸动图
-
+ 
  @param index 序号
  @param cell cell对象
  */
@@ -90,7 +90,7 @@ typedef enum : NSUInteger {
 
 /**
  退出此类的view
-
+ 
  @param view 此类的view
  @param button 退出按钮
  */
@@ -98,7 +98,7 @@ typedef enum : NSUInteger {
 
 /**
  点击如何获取
-
+ 
  @param view view
  */
 - (void)recordBeatutyViewDidSelectHowToGet:(AliyunRecordBeautyView *)view;
@@ -108,7 +108,7 @@ typedef enum : NSUInteger {
 
 /**
  初始化方法
-
+ 
  @param frame frame值
  @param titleArray 文字数组
  @param imageArray 图片数组
@@ -124,7 +124,7 @@ typedef enum : NSUInteger {
 
 /**
  设置动图选中哪个
-
+ 
  @param selectedIndex 选中的序号
  */
 - (void)setGifSelectedIndex:(NSInteger)selectedIndex;
@@ -132,7 +132,7 @@ typedef enum : NSUInteger {
 
 /**
  根据新的动图数组刷新ui
-
+ 
  @param effectItems 新的动图数组
  */
 - (void)refreshUIWithGifItems:(NSArray *)effectItems;

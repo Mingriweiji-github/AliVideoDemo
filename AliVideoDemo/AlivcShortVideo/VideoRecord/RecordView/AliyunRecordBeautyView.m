@@ -8,16 +8,15 @@
 
 #import "AliyunRecordBeautyView.h"
 #import "AliyunToolView.h"
-#import "AlivcRecordFliterView.h"
 #import "AliyunMagicCameraEffectCell.h"
 //#import "AliyunPasterInfo.h"
 #import <UIImageView+WebCache.h>
 #import "AliyunEffectFilterCell.h"
 #import "AliyunDBHelper.h"
-//#import "AliyunResourceRequestManager.h"
-//#import "AliyunEffectResourceModel.h"
-//#import "AliyunResourceDownloadManager.h"
-//#import "AliyunEffectModelTransManager.h"
+#import "AliyunResourceRequestManager.h"
+#import "AliyunEffectResourceModel.h"
+#import "AliyunResourceDownloadManager.h"
+#import "AliyunEffectModelTransManager.h"
 #import "UIView+AlivcHelper.h"
 #import "AlivcPushBeautyDataManager.h"
 #import "AlivcLiveBeautifySettingsViewController.h"
@@ -35,13 +34,7 @@ typedef enum : NSUInteger {
     AliyunEditSouceClickTypeTimeFilter
 } AliyunEditSouceClickType;
 
-@interface AliyunRecordBeautyView()<AliyunToolViewDelegate,AliyunEffectFilter2ViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,AlivcLiveBeautifySettingsViewControllerDelegate
->
-
-/**
- 滤镜view
- */
-@property (nonatomic, strong) AlivcRecordFliterView *filterView;
+@interface AliyunRecordBeautyView()<AliyunToolViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,AlivcLiveBeautifySettingsViewControllerDelegate>
 
 /**
  美颜view
@@ -84,7 +77,9 @@ typedef enum : NSUInteger {
  */
 @property (nonatomic, assign) NSInteger selectGifIndex;
 
-
+/**
+ 对FMDB包装类的对象
+ */
 @property (nonatomic, strong) AliyunDBHelper *dbHelper;
 
 /**
@@ -150,7 +145,7 @@ typedef enum : NSUInteger {
 - (void)setup:(NSArray *)titleArray imageArray:(NSArray *)imageArray{
     
     self.backgroundColor = [UIColor clearColor];
-    if ([titleArray[0] isEqualToString:@"滤镜"]) {
+    if ([titleArray[0] isEqualToString:@"美颜"]) {
         
         self.contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 78, ScreenWidth, self.frame.size.height - 78)];
         [self addSubview:self.contentView];
@@ -158,8 +153,10 @@ typedef enum : NSUInteger {
         self.toolView = [[AliyunToolView alloc] initWithItems:titleArray imageArray:imageArray frame:CGRectMake(0, 0, ScreenWidth, 45)];
         self.toolView.delegate = self;
         [self.contentView addSubview:self.toolView];
-        [self.contentView addSubview:self.filterView];
-        self.frontView = self.filterView;
+        [self addSubview:self.beautyFaceView];
+        self.frontView = self.beautyFaceView;
+        //        [self.contentView addSubview:self.filterView];
+        //        self.frontView = self.filterView;
         
         _dismissButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, 78)];
         _dismissButton.backgroundColor = [UIColor clearColor];
@@ -197,15 +194,12 @@ typedef enum : NSUInteger {
 
 - (void)AliyunToolView:(AliyunToolView *)toolView didClickedButton:(NSInteger)buttonTag{
     [self.frontView removeFromSuperview];
-    if ([self.titleArray[0] isEqualToString:@"滤镜"]) {
-        if (buttonTag==0) {
-            [self.contentView addSubview:self.filterView];
-            self.frontView = self.filterView;
-        }else if(buttonTag == 1){
+    if ([self.titleArray[0] isEqualToString:@"美颜"]) {
+        if(buttonTag == 0){
             [self addSubview:self.beautyFaceView];
             self.frontView = self.beautyFaceView;
             //            [self bringSubviewToFront:self.dismissButton];
-        }else if(buttonTag == 2){
+        }else if(buttonTag == 1){
             [self addSubview:self.beautySkinView];
             self.frontView = self.beautySkinView;
             //            [self bringSubviewToFront:self.dismissButton];
@@ -219,15 +213,7 @@ typedef enum : NSUInteger {
     
 }
 
-- (AlivcRecordFliterView *)filterView {
-    if (!_filterView) {
-        
-        _filterView = [[AlivcRecordFliterView alloc] initWithFrame:CGRectMake(0, 50, ScreenWidth, 102)];
-        _filterView.backgroundColor = [UIColor clearColor];
-        _filterView.delegate = (id<AliyunEffectFilter2ViewDelegate>)self;
-    }
-    return _filterView;
-}
+
 - (UIView *)beautyFaceView {
     if (!_beautyFaceView) {
         //默认档位
@@ -254,6 +240,7 @@ typedef enum : NSUInteger {
             NSInteger level = [self.beautyFaceDataManager_advanced getBeautyLevel];
             [self.beatyFaceSettingViewControl updateLevel:level];
         }
+        
         self.beatyFaceSettingViewControl.delegate = self;
         for (NSInteger i = 0; i < 3; i ++) {
             __block AliyunRecordBeautyView *weakSelf = self;
@@ -261,7 +248,9 @@ typedef enum : NSUInteger {
                 [weakSelf.toolView clickTithTag:i];
             } withTag:i];
         }
+        
         _beautyFaceView = self.beatyFaceSettingViewControl.view;
+        
     }
     return _beautyFaceView;
 }
@@ -302,13 +291,13 @@ typedef enum : NSUInteger {
         _gifCollectionView.backgroundColor = [UIColor clearColor];
         _gifCollectionView.delegate = (id)self;
         _gifCollectionView.dataSource = (id)self;
-//        [_gifCollectionView registerClass:[AliyunMagicCameraEffectCell class] forCellWithReuseIdentifier:@"AliyunMagicCameraEffectCell"];
+        //        [_gifCollectionView registerClass:[AliyunMagicCameraEffectCell class] forCellWithReuseIdentifier:@"AliyunMagicCameraEffectCell"];
     }
     return _gifCollectionView;
 }
 
 - (AliyunDBHelper *)dbHelper {
-
+    
     if (!_dbHelper) {
         _dbHelper = [[AliyunDBHelper alloc] init];
     }
@@ -323,96 +312,6 @@ typedef enum : NSUInteger {
     
 }
 
-#pragma mark - UICollectionViewDataSource && UICollectionViewDelegate -
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return self.effectItems.count;
-}
-
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    //由于要更新下载进度 这里cell不复用了
-    NSString *identifier = [_cellDic objectForKey:[NSString stringWithFormat:@"%@", indexPath]];
-    // 如果取出的唯一标示符不存在，则初始化唯一标示符，并将其存入字典中，对应唯一标示符注册Cell
-    if (identifier == nil) {
-        identifier = [NSString stringWithFormat:@"AliyunMagicCameraEffectCell%@", [NSString stringWithFormat:@"%@", indexPath]];
-        [_cellDic setValue:identifier forKey:[NSString stringWithFormat:@"%@", indexPath]];
-        // 注册Cell
-        [_gifCollectionView registerClass:[AliyunMagicCameraEffectCell class]  forCellWithReuseIdentifier:identifier];
-    }
-    AliyunMagicCameraEffectCell *effectCell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    NSLog(@"\n-----动图下载测试：%ld,%p-------\n",(long)indexPath.row,effectCell);
-//    AliyunPasterInfo *pasterInfo = [self.effectItems objectAtIndex:indexPath.row];
-//    
-//    if (pasterInfo.bundlePath != nil) {
-//        UIImage *iconImage = [UIImage imageWithContentsOfFile:pasterInfo.icon];
-//        [effectCell.imageView setImage:iconImage];
-//        [effectCell shouldDownload:NO];
-//        NSLog(@"动图下载测试刷新图片：bundlePath：%@",pasterInfo.bundlePath);
-//    } else {
-//        if ([pasterInfo fileExist] && pasterInfo.icon) {
-//            NSLog(@"动图下载测试刷新图片 存在：icon：%@ ",pasterInfo.icon);
-//            UIImage *iconImage = [UIImage imageWithContentsOfFile:pasterInfo.icon];
-//            if (!iconImage) {
-//                NSURL *url = [NSURL URLWithString:pasterInfo.icon];
-//                [effectCell.imageView sd_setImageWithURL:url];
-//                NSLog(@"动图下载测试url");
-//            } else {
-//                [effectCell.imageView setImage:iconImage];
-//                NSLog(@"动图下载测试iconImage");
-//            }
-//        } else {
-//            NSLog(@"动图下载测试刷新图片 不存在：icon：%@\n",pasterInfo.icon);
-//            NSURL *url = [NSURL URLWithString:pasterInfo.icon];
-//            [effectCell.imageView sd_setImageWithURL:url];
-//            
-//        }
-//        if (pasterInfo.icon == nil) {
-//            [effectCell shouldDownload:NO];
-//        } else {
-//            BOOL shouldDownload = ![pasterInfo fileExist];
-//            [effectCell shouldDownload:shouldDownload];
-//            NSLog(@"动图下载测试:下载按钮:%d",shouldDownload);
-//        }
-//    }
-    if (indexPath.row == 0) {
-        effectCell.imageView.contentMode = UIViewContentModeCenter;
-        effectCell.imageView.backgroundColor = rgba(255, 255, 255, 0.2);
-        effectCell.imageView.layer.cornerRadius = effectCell.imageView.frame.size.width/2;
-        effectCell.imageView.layer.masksToBounds = YES;
-        effectCell.imageView.image = [AlivcImage imageNamed:@"shortVideo_clear"];
-        
-    }else{
-        effectCell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        effectCell.imageView.backgroundColor = [UIColor clearColor];
-        effectCell.imageView.layer.cornerRadius = 50/2;
-        effectCell.imageView.layer.masksToBounds = YES;
-    }
-    if (indexPath.row == _selectGifIndex) {
-        [effectCell setApplyed:YES];
-        
-        NSLog(@"动图下载测试选择效果设置为YES");
-    }else{
-        [effectCell setApplyed:NO];
-        NSLog(@"动图下载测试选择效果设置为NO");
-    } 
-    return effectCell;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    AliyunMagicCameraEffectCell *cell = (AliyunMagicCameraEffectCell *)[self.gifCollectionView cellForItemAtIndexPath:indexPath];
-    if (cell.isLoading) {
-        return;
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.delegate && [self.delegate respondsToSelector:@selector(focusItemIndex:cell:)]) {
-            [self.delegate focusItemIndex:indexPath.row cell:cell];
-        }
-    });
-}
-
 #pragma mark - AlivcLiveBeautifySettingsViewControllerDelegate
 
 - (void)settingsViewController:(AlivcLiveBeautifySettingsViewController *)viewController didChangeLevel:(NSInteger)level{
@@ -420,7 +319,8 @@ typedef enum : NSUInteger {
     if(viewController == self.beatyFaceSettingViewControl){
         //美颜
         switch (viewController.currentStyle) {
-            case AlivcBeautySettingViewStyle_ShortVideo_BeautyFace_Advanced:{
+            case AlivcBeautySettingViewStyle_ShortVideo_BeautyFace_Advanced:
+            {
                 [_beautyFaceDataManager_advanced saveBeautyLevel:level];
                 AlivcPushBeautyParams *params = [_beautyFaceDataManager_advanced getBeautyParamsOfLevel:level];
                 //高级美颜

@@ -45,6 +45,10 @@
 - (void)musicButtonClicked;
 
 /**
+ 音乐按钮被点击的代理方法
+ */
+- (void)filterButtonClicked;
+/**
  定时器按钮被点击的代理方法
  */
 - (void)timerButtonClicked;
@@ -80,11 +84,6 @@
  完成录制的代理方法
  */
 - (void)recordButtonFinishVideo;
-
-/**
- 本地相册编辑
- */
-- (void)editButtonClick;
 
 /**
  基础美颜的美颜值改变
@@ -234,6 +233,12 @@
 @property (nonatomic, strong) UIButton *musicButton;
 
 /**
+ 滤镜按钮
+ */
+@property (nonatomic, strong) UIButton *filterButton;
+
+
+/**
  录制按钮
  */
 @property (nonatomic, strong) MagicCameraPressCircleView *circleBtn;
@@ -331,6 +336,22 @@
  @param point 焦点坐标
  */
 -(void)refreshFocusPointWithPoint:(CGPoint)point;
+
+
+/**
+ 禁用或启用完成按钮
+ 
+ @param enable 是否启用
+ */
+- (void)enableFinishButton:(BOOL)enable;
+
+
+/**
+ 
+ 设置音乐的图片
+ @param imageUrl 图片地址
+ */
+- (void)setMusicButtonImage:(NSString *)imageUrl;
 
 
 @end
