@@ -27,7 +27,8 @@
     AlivcEditItemModel *firstModel = models.firstObject;
     
     //2个按钮中心之间的间距
-    CGFloat devide = ScreenWidth / 5.5;
+//    CGFloat devide = ScreenWidth / 5.5;
+    CGFloat devide = ScreenWidth / 6;
     //基础参数
     UIImage *image = firstModel.showImage;
     CGFloat buttonWidth = image.size.width;

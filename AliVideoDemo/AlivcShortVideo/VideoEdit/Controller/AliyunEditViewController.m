@@ -404,11 +404,6 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
     [self.backButton sizeToFit];
     self.backButton.center = CGPointMake(20, centerY);
     
-    //发布按钮
-    [self.view addSubview:self.publishButton];
-    [self.publishButton sizeToFit];
-    self.publishButton.center = CGPointMake(ScreenWidth - 20, centerY);
-    
     self.currentTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake((ScreenWidth-60)/2, IS_IPHONEX?(SafeTop-10):0, 60, 12)];
     self.currentTimeLabel.backgroundColor = RGBToColor(27, 33, 51);
     self.currentTimeLabel.textColor = [UIColor whiteColor];
@@ -418,13 +413,16 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
     //    [self.currentTimeLabel sizeToFit];
     [self.view addSubview:self.currentTimeLabel];
     
+    //底部视图
     NSArray *editModels = [AlivcEditItemManager defaultModelsWithUIConfig:_uiConfig];
     self.editButtonsView = [[AliyunEditButtonsView alloc] initWithModels:editModels];
     self.editButtonsView.frame =
     CGRectMake(0, ScreenHeight - 70 - SafeBottom, ScreenWidth, 70);
     [self.view addSubview:self.editButtonsView];
     self.editButtonsView.delegate = (id)self;
-    [self.view addSubview:self.playButton];
+//    [self.view addSubview:self.playButton];
+    //发布按钮
+    [self.editButtonsView addSubview:self.publishButton];
 }
 
 /**
@@ -577,11 +575,11 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
         [_playButton setImage:_uiConfig.pauseImage forState:UIControlStateNormal];
         [_playButton setImage:_uiConfig.playImage forState:UIControlStateSelected];
         [_playButton setAdjustsImageWhenHighlighted:NO];
-        [_playButton addTarget:self
-                        action:@selector(playControlClick:)
-              forControlEvents:UIControlEventTouchUpInside];
-        [_playButton setTitle:@"暂停播放" forState:UIControlStateNormal];
-        [_playButton setTitle:@"播放全片" forState:UIControlStateSelected];
+//        [_playButton addTarget:self
+//                        action:@selector(playControlClick:)
+//              forControlEvents:UIControlEventTouchUpInside];
+//        [_playButton setTitle:@"暂停播放" forState:UIControlStateNormal];
+//        [_playButton setTitle:@"播放全片" forState:UIControlStateSelected];
         [_playButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
         [_playButton setBackgroundColor:[UIColor colorWithRed:0
                                                         green:0
@@ -812,15 +810,12 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
 - (UIButton *)publishButton {
     if (!_publishButton) {
         _publishButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_publishButton setImage:_uiConfig.finishImage
-                        forState:UIControlStateNormal];
-        [_publishButton setImage:_uiConfig.finishImage
-                        forState:UIControlStateSelected];
-        [_publishButton setTitleColor:[UIColor whiteColor]
-                             forState:UIControlStateNormal];
-        [_publishButton setTitleColor:[UIColor whiteColor]
-                             forState:UIControlStateSelected];
-        [_publishButton setBackgroundColor:[UIColor clearColor]];
+        _publishButton.frame = CGRectMake(ScreenWidth- 30 - 80, 35-15, 80, 30);
+        [_publishButton setTitle:@"下一步" forState:UIControlStateNormal];
+        [_publishButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_publishButton setBackgroundColor:[UIColor colorWithHexString:@"#FD3B81"]];
+        _publishButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        _publishButton.layer.cornerRadius = 2;
         [_publishButton addTarget:self
                            action:@selector(publish)
                  forControlEvents:UIControlEventTouchUpInside];
@@ -1563,7 +1558,7 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
                                    action:@selector(backgroundTouchButtonClicked:)
                          forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backgroundTouchButton];
-    [self.view bringSubviewToFront:self.playButton];
+//    [self.view bringSubviewToFront:self.playButton];
 }
 
 /**
