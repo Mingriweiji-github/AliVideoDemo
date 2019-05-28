@@ -137,22 +137,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/RecordView/AliyunToolView.m"
-            timestampString = "580466416.443516"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "-buttonClick:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/RecordView/AliyunRecordCameraView.m"
             timestampString = "580644273.19214"
             startingColumnNumber = "9223372036854775807"
@@ -179,13 +163,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/AliyunMagicCameraViewController.m"
-            timestampString = "580652466.636636"
+            filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/RecordView/AliyunRecordBeautyView.m"
+            timestampString = "580655314.280701"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1000"
-            endingLineNumber = "1000"
-            landmarkName = "-flashButtonClicked"
+            startingLineNumber = "407"
+            endingLineNumber = "407"
+            landmarkName = "-settingsViewController:didChangeUIStyle:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

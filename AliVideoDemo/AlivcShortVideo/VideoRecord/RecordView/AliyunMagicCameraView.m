@@ -176,21 +176,23 @@
 //    [self addSubview:self.rateView];
     
     self.beautyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.beautyButton setImage:_uiConfig.faceImage forState:UIControlStateNormal];
+//    [self.beautyButton setImage:_uiConfig.faceImage forState:UIControlStateNormal];
+    [self.beautyButton setImage:[UIImage imageNamed:@"shortVideo_music"] forState:UIControlStateNormal];
     [self.beautyButton setBackgroundColor:[UIColor clearColor]];
-    [self.beautyButton addTarget:self action:@selector(beauty) forControlEvents:UIControlEventTouchUpInside];
+    [self.beautyButton addTarget:self action:@selector(musicButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.beautyButton.frame = CGRectMake(0, 0, 40, 70);
     CGFloat y = self.circleBtn.center.y;
     CGFloat x = ScreenWidth/2-120;
     self.beautyButton.center = CGPointMake(x, y);
-    [self.beautyButton setTitle:@"美颜" forState:UIControlStateNormal];
+//    [self.beautyButton setTitle:@"美颜" forState:UIControlStateNormal];
+    [self.beautyButton setTitle:@"音乐" forState:UIControlStateNormal];
     [self.beautyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.beautyButton.titleLabel.font = [UIFont systemFontOfSize:12];
     CGFloat titleHeight = self.beautyButton.titleLabel.intrinsicContentSize.height;
     CGFloat imageWidth = self.beautyButton.imageView.frame.size.width;
     CGFloat imageHeight = self.beautyButton.imageView.frame.size.height;
     self.beautyButton.imageEdgeInsets = UIEdgeInsetsMake(0, (40 - imageWidth) * 0.5, titleHeight + 8, 0);
-    self.beautyButton.titleEdgeInsets = UIEdgeInsetsMake(imageHeight + 8, -imageWidth, 0, 0);
+    self.beautyButton.titleEdgeInsets = UIEdgeInsetsMake(imageHeight + 8, -imageWidth, 0, -3);
     self.beautyButton.layer.shadowColor = [UIColor grayColor].CGColor;
     self.beautyButton.layer.shadowOpacity = 0.5;
     self.beautyButton.layer.shadowOffset = CGSizeMake(1, 1);
@@ -204,7 +206,7 @@
     self.gifPictureButton.frame = CGRectMake(0, 0, 40, 70);
     self.gifPictureButton.center = CGPointMake(ScreenWidth/2+120, y);
     
-    [self.gifPictureButton setTitle:@"道具" forState:UIControlStateNormal];
+    [self.gifPictureButton setTitle:@"相册" forState:UIControlStateNormal];
     [self.gifPictureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.gifPictureButton.titleLabel.font = [UIFont systemFontOfSize:12];
     CGFloat gif_titleHeight = self.gifPictureButton.titleLabel.intrinsicContentSize.height;
@@ -733,9 +735,11 @@
         _musicButton.backgroundColor = [UIColor clearColor];
         _musicButton.frame = CGRectMake(CGRectGetWidth(self.bounds) - 44 - 10, 80 + SafeTop, 44, 50);
 //        [_musicButton setImage:_uiConfig.musicImage forState:UIControlStateNormal];
-        [_musicButton setImage:[UIImage imageNamed:@"shortVideo_music"] forState:UIControlStateNormal];
-        [_musicButton addTarget:self action:@selector(musicButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [_musicButton setTitle:@"剪音乐" forState:UIControlStateNormal];
+        [_musicButton addTarget:self action:@selector(beauty) forControlEvents:UIControlEventTouchUpInside];
+//        [_musicButton setTitle:@"剪音乐" forState:UIControlStateNormal];
+//        [_musicButton setImage:[UIImage imageNamed:@"shortVideo_music"] forState:UIControlStateNormal];
+        [_musicButton setImage:_uiConfig.faceImage forState:UIControlStateNormal];
+        [_musicButton setTitle:@"美颜" forState:UIControlStateNormal];
         _musicButton.titleLabel.font = [UIFont systemFontOfSize:13];
         CGFloat titleHeight = _musicButton.titleLabel.intrinsicContentSize.height;
         //        CGFloat titleWidth = btn.titleLabel.intrinsicContentSize.width;
