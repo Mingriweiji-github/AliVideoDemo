@@ -439,7 +439,7 @@ UIAlertViewDelegate>
      writeVideoAtPathToSavedPhotosAlbum:[NSURL
                                          fileURLWithPath:_config.outputPath]
      completionBlock:^(NSURL *assetURL, NSError *error) {
-         NSLog(@"视频已保存到相册");
+         NSLog(@"exporterDidEnd : 视频已保存到相册");
      }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)),
                    dispatch_get_main_queue(), ^{
