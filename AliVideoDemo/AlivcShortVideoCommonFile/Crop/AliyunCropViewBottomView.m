@@ -40,14 +40,14 @@
     
     CGFloat height = CGRectGetHeight(self.frame);
     CGFloat width = CGRectGetWidth(self.frame);
-    self.backButton = [self buttonWithRect:(CGRectMake(0, 0, height, height)) image:[AliyunImage imageNamed:@"cancel"] action:@selector(backButtonAction)];
+    self.backButton = [self buttonWithRect:(CGRectMake(0, 0, height, height)) image:[UIImage imageNamed:@"selectVideo_close"] action:@selector(backButtonAction)];
     [self addSubview:self.backButton];
     
-    self.ratioButton = [self buttonWithRect:(CGRectMake(0, 0, height, height)) image:[AliyunImage imageNamed:@"cut_ratio"] action:@selector(ratioButtonAction)];
+    self.ratioButton = [self buttonWithRect:(CGRectMake(0, 0, height, height)) image:[UIImage imageNamed:@""] action:@selector(ratioButtonAction)];
     self.ratioButton.center = CGPointMake(width / 2, height / 2);
     [self addSubview:self.ratioButton];
     
-    self.cropButton = [self buttonWithRect:(CGRectMake(width - height, 0, height, height)) image:[AliyunImage imageNamed:@"check"] action:@selector(cropButtonAction)];
+    self.cropButton = [self buttonWithRect:(CGRectMake(width - height, 0, height, height)) image:[UIImage imageNamed:@"selectVideo_done"] action:@selector(cropButtonAction)];
     [self addSubview:self.cropButton];
 }
 

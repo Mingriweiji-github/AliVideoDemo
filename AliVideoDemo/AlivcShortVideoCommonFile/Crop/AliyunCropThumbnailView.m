@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AliyunMediaConfig.h"
 #import "AVC_ShortVideo_Config.h"
+#import "UIColor+AlivcHelper.h"
 @interface AliyunCropThumbnailView ()
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UILabel *durationLabel;
@@ -66,7 +67,7 @@
 
 - (void)setupSubviews {
     
-    _progressView = [[UIImageView alloc] initWithImage:[AliyunImage imageNamed:@"progress"]];
+    _progressView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"progress"]];
     _progressView.bounds = CGRectMake(0, 0, ScreenWidth / 8.0, ScreenWidth / 8.0);
     _progressView.center = CGPointMake(0, CGRectGetMidY(self.bounds) + 6);
     [self addSubview:_progressView];
@@ -78,19 +79,19 @@
     [self addSubview:_durationLabel];
     
     _imageViewWith = ScreenWidth / 8.0 * 0.35;
-    _imageViewLeft = [[UIImageView alloc] initWithImage:[AliyunImage imageNamed:@"cut_bar_left"]];
+    _imageViewLeft = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slider_left"]];
     _imageViewLeft.frame = CGRectMake(0, 12, _imageViewWith, ScreenWidth / 8.0);
     _imageViewLeft.userInteractionEnabled = YES;
-    _imageViewRight = [[UIImageView alloc] initWithImage:[AliyunImage imageNamed:@"cut_bar_right"]];
+    _imageViewRight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slider_left"]];
     _imageViewRight.frame = CGRectMake(ScreenWidth - _imageViewWith, 12, _imageViewWith, ScreenWidth / 8.0);
     _imageViewRight.userInteractionEnabled = YES;
     
     
     _topLineView = [[UIImageView alloc]initWithFrame:CGRectMake(_imageViewWith - 3 , 12, ScreenWidth - _imageViewWith *2 + 6, 3)];
-    _topLineView.backgroundColor = [AliyunIConfig config].cutTopLineColor;
+    _topLineView.backgroundColor = [UIColor colorWithHexString:@"#FD3B81"];
     
     _underLineView = [[UIImageView alloc]initWithFrame:CGRectMake(_imageViewWith - 3, _imageViewLeft.frame.size.height + 12 - 3  , ScreenWidth - _imageViewWith *2 + 6, 3)];
-    _underLineView.backgroundColor = [AliyunIConfig config].cutBottomLineColor;
+    _underLineView.backgroundColor = [UIColor colorWithHexString:@"#FD3B81"];
     
     [self addSubview:_topLineView];
     [self addSubview:_underLineView];
@@ -102,9 +103,9 @@
     _imageViewLeftMask = [[UIImageView alloc]initWithFrame:CGRectMake(0, 12, 0, _imageViewLeft.frame.size.height)];
     _imageViewRightMask = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_imageViewRight.frame), 12, 0, _imageViewLeft.frame.size.height)];
     
-    _imageViewLeftMask.backgroundColor = [AliyunIConfig config].backgroundColor;
+    _imageViewLeftMask.backgroundColor = RGBToColor(35, 42, 66);;
     _imageViewLeftMask.alpha = 0.8;
-    _imageViewRightMask.backgroundColor = [AliyunIConfig config].backgroundColor;
+    _imageViewRightMask.backgroundColor = RGBToColor(35, 42, 66);;
     _imageViewRightMask.alpha = 0.8;
     
     [self addSubview:_imageViewLeftMask];

@@ -80,7 +80,7 @@
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     
-    self.view.backgroundColor = [AliyunIConfig config].backgroundColor;
+    self.view.backgroundColor = RGBToColor(35, 42, 66);
     
     self.buttonBack = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.buttonBack.frame = CGRectMake(0, StatusBarHeight, 44, 44);

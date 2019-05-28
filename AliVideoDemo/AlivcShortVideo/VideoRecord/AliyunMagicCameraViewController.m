@@ -47,13 +47,15 @@
 #import "AliyunEffectFilterInfo.h"
 #import "AliyunEffectFilterView.h"
 #import "UIView+AlivcHelper.h"
-
-@interface AliyunMagicCameraViewController () <AliyunMusicPickViewControllerDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,AliyunIRecorderDelegate,AliyunEffectFilter2ViewDelegate>
+#import "AliyunPhotoViewController.h"
+@interface AliyunMagicCameraViewController () <AliyunMusicPickViewControllerDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,AliyunIRecorderDelegate,AliyunEffectFilter2ViewDelegate,AliyunPhotoViewControllerDelegate>
 
 /**
  SDK录制类
  */
 @property (nonatomic, strong) AliyunIRecorder *recorder;
+
+@property (nonatomic, strong)AliyunMediaConfig *mediaConfig;
 
 /**
  控制器view
@@ -1082,15 +1084,32 @@
         _isPreviewing =YES;
     }
 }
-- (void)photoButtonClicked {
-    AliyunMediaConfig *defauleMedia = [AliyunMediaConfig defaultConfig];
-    [[AlivcShortVideoRoute shared] registerHasRecordMusic:NO];
-    [[AlivcShortVideoRoute shared]registerMediaConfig:defauleMedia];
-    defauleMedia.videoOnly = YES;//仅仅展示视频
-    UIViewController *editVideoSelectVC = [[AlivcShortVideoRoute shared]alivcViewControllerWithType:AlivcViewControlEditVideoSelect];
-    [editVideoSelectVC setValue:@1 forKey:@"isOriginal"];
-    [self.navigationController pushViewController:editVideoSelectVC animated:YES];
+- (void)backBtnClick {
+    [self.navigationController popViewControllerAnimated:YES];
 }
+- (void)photoButtonClicked {
+    //短视频裁剪选择页
+    UIViewController *vc = [[AliyunMediator shared] cropModule];// AliyunPhotoViewController
+    [vc setValue:self.mediaConfig forKey:@"cutInfo"];
+    [vc setValue:self forKey:@"delegate"];
+    [self.navigationController pushViewController:vc animated:NO];
+}
+-(AliyunMediaConfig *)mediaConfig{
+    
+    if (!_mediaConfig) {//默认配置
+        _mediaConfig = [AliyunMediaConfig defaultConfig];
+        _mediaConfig.minDuration = 2.0;
+        _mediaConfig.maxDuration = 10.0*60;
+        _mediaConfig.fps = 25;
+        _mediaConfig.gop = 5;
+        _mediaConfig.cutMode = AliyunMediaCutModeScaleAspectFill;
+        _mediaConfig.videoOnly = NO;
+        _mediaConfig.backgroundColor = [UIColor blackColor];
+        
+    }
+    return _mediaConfig;
+}
+
 -(void)deleteButtonClicked {
     [_clipManager deletePart];
     _magicCameraView.progressView.videoCount--;

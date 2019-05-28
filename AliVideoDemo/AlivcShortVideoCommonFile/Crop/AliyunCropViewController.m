@@ -215,15 +215,17 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
     }
     _previewScrollView.frame = frame;
     _previewScrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    if (_cutInfo.cutMode == AliyunMediaCutModeScaleAspectCut) {
-        
-        [self.bottomView.ratioButton setImage:[AliyunImage imageNamed:@"cut_ratio"] forState:0];
-        [self fitModeCut];
-    } else {
-        
-        [self.bottomView.ratioButton setImage:[AliyunImage imageNamed:@"normal"] forState:0];
-        [self fitModeFill];
-    }
+    
+//    if (_cutInfo.cutMode == AliyunMediaCutModeScaleAspectCut) {
+//
+//        [self.bottomView.ratioButton setImage:[AliyunImage imageNamed:@"cut_ratio"] forState:0];
+//        [self fitModeCut];
+//    } else {
+//
+//        [self.bottomView.ratioButton setImage:[AliyunImage imageNamed:@"normal"] forState:0];
+//        [self fitModeFill];
+//    }
+    [self.bottomView.ratioButton setTitle:@"裁剪" forState:UIControlStateNormal];
 }
 
 - (void)fitModeCut {
