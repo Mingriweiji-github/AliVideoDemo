@@ -177,6 +177,7 @@
 
 - (void)cropViewControllerFinish:(AliyunMediaConfig *)mediaInfo viewController:(UIViewController *)controller {
 //    [self.navigationController popViewControllerAnimated:YES];
+    NSLog(@"剪切成功URL=%@",mediaInfo.outputPath);
     if (mediaInfo.phAsset) {//图片资源
         if (self.delegate) {
             [self.delegate cropFinished:controller mediaType:kPhotoMediaTypePhoto photo:mediaInfo.phImage videoPath:nil];

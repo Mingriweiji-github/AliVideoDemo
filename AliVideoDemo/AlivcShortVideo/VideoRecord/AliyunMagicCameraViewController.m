@@ -1424,11 +1424,44 @@
     }
     return _filterView;
 }
+#pragma mark 裁剪完成 AliyunPhotoViewControllerDelegate
+- (void)cropFinished:(UIViewController *)cropViewController videoPath:(NSString *)videoPath sourcePath:(NSString *)sourcePath {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:videoPath]) {
+        NSLog(@"文件不存在!");
+    }
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library writeVideoAtPathToSavedPhotosAlbum:[NSURL fileURLWithPath:videoPath] completionBlock:^(NSURL *assetURL, NSError *error) {
+        if (error) {
+            NSLog(@"裁剪完成，保存到相册失败");
+        }
+        BOOL isVideoOK = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoPath);
+        if (!isVideoOK){
+            NSLog(@"视频已损坏:%@",videoPath);
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"裁剪完成" message:@"已保存到手机相册" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+        });
+    }];
+}
+- (void)cropFinished:(UIViewController *)cropViewController mediaType:(kPhotoMediaType)type photo:(UIImage *)photo videoPath:(NSString *)videoPath {
+    if (type == kPhotoMediaTypePhoto) {
+        UIImageWriteToSavedPhotosAlbum(photo, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+    }
+}
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    if(error != NULL){
+        NSLog(@"裁剪完成，保存到相册失败");
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.navigationController popViewControllerAnimated:YES];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"裁剪完成" message:@"已保存到手机相册" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    });
+}
 
-//- (void)didSelectEffectFilter:(AliyunEffectFilterInfo *)filter {
-//    AliyunEffectFilter *filter2 = [[AliyunEffectFilter alloc]
-//                                   initWithFile:[filter localFilterResourcePath]];
-//    [self.editor applyFilter:filter2];
-//}
 
 @end
