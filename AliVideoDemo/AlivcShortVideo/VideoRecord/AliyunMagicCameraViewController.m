@@ -1087,12 +1087,13 @@
 - (void)backBtnClick {
     [self.navigationController popViewControllerAnimated:YES];
 }
+#pragma mark 相册裁剪
 - (void)photoButtonClicked {
     //短视频裁剪选择页
     UIViewController *vc = [[AliyunMediator shared] cropModule];// AliyunPhotoViewController
     [vc setValue:self.mediaConfig forKey:@"cutInfo"];
     [vc setValue:self forKey:@"delegate"];
-    [self.navigationController pushViewController:vc animated:NO];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 -(AliyunMediaConfig *)mediaConfig{
     

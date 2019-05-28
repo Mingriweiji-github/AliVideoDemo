@@ -13,17 +13,27 @@ NS_ASSUME_NONNULL_BEGIN
 //编辑底部事件类型定义
 typedef NS_ENUM(NSInteger,AliyunEditSouceClickType){
     AliyunEditSouceClickTypeFilter = 0,
+    AliyunEditSouceClickTypeEffect,
+    AliyunEditSouceClickTypeCover,
     AliyunEditSouceClickTypeMusic,
     AliyunEditSouceClickTypePaster,
     AliyunEditSouceClickTypeCaption,
     AliyunEditSouceClickTypeMV,
     AliyunEditSouceClickTypeEffectSound,
-    AliyunEditSouceClickTypeEffect,
     AliyunEditSouceClickTypeTimeFilter,
     AliyunEditSouceClickTypeTranslation,
-    AliyunEditSouceClickTypePaint,
-    AliyunEditSouceClickTypeCover
-};
+    AliyunEditSouceClickTypePaint
+};/* AliyunEditSouceClickTypeFilter = 0,
+   AliyunEditSouceClickTypeMusic,
+   AliyunEditSouceClickTypePaster,
+   AliyunEditSouceClickTypeCaption,
+   AliyunEditSouceClickTypeMV,
+   AliyunEditSouceClickTypeEffectSound,
+   AliyunEditSouceClickTypeEffect,
+   AliyunEditSouceClickTypeTimeFilter,
+   AliyunEditSouceClickTypeTranslation,
+   AliyunEditSouceClickTypePaint,
+   AliyunEditSouceClickTypeCover*/
 
 @interface AlivcEditItemModel : NSObject
 

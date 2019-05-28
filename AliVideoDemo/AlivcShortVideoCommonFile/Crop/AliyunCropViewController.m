@@ -341,17 +341,10 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
 //        if (self.delegate) {//回调到选择相册视频
 //            [self.delegate cropViewControllerFinish:self.cutInfo viewController:self];
 //        }
+        #pragma mark 视频编辑
         [[AlivcShortVideoRoute shared]registerEditVideoPath:_cutInfo.outputPath];
         [[AlivcShortVideoRoute shared]registerEditMediasPath:nil];
         UIViewController *editVC = [[AlivcShortVideoRoute shared]alivcViewControllerWithType:AlivcViewControlEdit];
-//        if ([editVC isKindOfClass:[AliyunEditViewController class]]) {
-//            AliyunEditViewController *vc = (AliyunEditViewController *)editVC;
-//            if(self.music && ![self.music.name isEqualToString:@"无音乐"]){
-//                vc.hasRecordMusic = YES;
-//            }else{
-//                vc.hasRecordMusic = NO;
-//            }
-//        }
         [self.navigationController pushViewController:editVC animated:YES];
         
     }

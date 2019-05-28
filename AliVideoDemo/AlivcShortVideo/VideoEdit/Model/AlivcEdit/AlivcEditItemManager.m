@@ -16,11 +16,11 @@
 @implementation AlivcEditItemManager
 + (NSArray <AlivcEditItemModel*>*)defaultModelsWithUIConfig:(AlivcEditUIConfig *)uiConfig{
     NSMutableArray *resultArray = [[NSMutableArray alloc]init];
-    NSInteger defaultAllValue = 10;
-    AlivcOutputProductType productType = kAlivcProductType;
-    if (productType == AlivcOutputProductTypeSmartVideo) {
-        defaultAllValue = 11;
-    }
+    NSInteger defaultAllValue = 4;//10
+//    AlivcOutputProductType productType = kAlivcProductType;
+//    if (productType == AlivcOutputProductTypeSmartVideo) {
+//        defaultAllValue = 11;
+//    }
     for (NSInteger i = 0; i < defaultAllValue; i++) {
         AlivcEditItemModel *model =[AlivcEditItemManager configModelsWithIndex:i withUIConfig:uiConfig];
         if (model) {
@@ -42,60 +42,11 @@
             model.selString = @"filterButtonClicked:";
         }
             break;
-        case AliyunEditSouceClickTypeMusic:
-        {
-            model.title = [@"音乐" localString];
-            model.showImage = uiConfig.musicImage;
-            model.selString = @"musicButtonClicked:";
-        }
-            break;
-        case AliyunEditSouceClickTypePaster:
-        {
-            model.title = [@"动图" localString];
-            model.showImage = uiConfig.pasterImage;
-            model.selString = @"pasterButtonClicked:";
-        }
-            break;
-        case AliyunEditSouceClickTypeCaption:
-        {
-            model.title = [@"字幕" localString];
-            model.showImage = uiConfig.captionImage;
-            model.selString = @"subtitleButtonClicked:";
-        }
-            break;
-        case AliyunEditSouceClickTypeMV:
-        {
-            model.title = [@"MV" localString];
-            model.showImage = uiConfig.mvImage;
-            model.selString = @"mvButtonClicked:";
-        }
-            break;
         case AliyunEditSouceClickTypeEffect:
         {
             model.title = [@"特效" localString];
             model.showImage = uiConfig.effectImage;
             model.selString = @"effectButtonClicked:";
-        }
-            break;
-        case AliyunEditSouceClickTypeTimeFilter:
-        {
-            model.title = [@"变速" localString];
-            model.showImage = uiConfig.timeImage;
-            model.selString = @"timeButtonClicked:";
-        }
-            break;
-        case AliyunEditSouceClickTypeTranslation:
-        {
-            model.title = [@"转场" localString];
-            model.showImage = uiConfig.translationImage;
-            model.selString = @"translationButtonCliked:";
-        }
-            break;
-        case AliyunEditSouceClickTypePaint:
-        {
-            model.title = [@"涂鸦" localString];
-            model.showImage = uiConfig.paintImage;
-            model.selString = @"paintButtonClicked:";
         }
             break;
         case AliyunEditSouceClickTypeCover:
@@ -105,13 +56,62 @@
             model.selString = @"coverButtonClicked:";
         }
             break;
-        case AliyunEditSouceClickTypeEffectSound:
+        case AliyunEditSouceClickTypeMusic:
         {
-            model.title = [@"音效" localString];
-            model.showImage = uiConfig.soundImage;
-            model.selString = @"soundButtonClicked:";
+            model.title = [@"音乐" localString];
+            model.showImage = uiConfig.musicImage;
+            model.selString = @"musicButtonClicked:";
         }
             break;
+//        case AliyunEditSouceClickTypePaster:
+//        {
+//            model.title = [@"动图" localString];
+//            model.showImage = uiConfig.pasterImage;
+//            model.selString = @"pasterButtonClicked:";
+//        }
+//            break;
+//        case AliyunEditSouceClickTypeCaption:
+//        {
+//            model.title = [@"字幕" localString];
+//            model.showImage = uiConfig.captionImage;
+//            model.selString = @"subtitleButtonClicked:";
+//        }
+//            break;
+//        case AliyunEditSouceClickTypeMV:
+//        {
+//            model.title = [@"MV" localString];
+//            model.showImage = uiConfig.mvImage;
+//            model.selString = @"mvButtonClicked:";
+//        }
+//            break;
+//        case AliyunEditSouceClickTypeTimeFilter:
+//        {
+//            model.title = [@"变速" localString];
+//            model.showImage = uiConfig.timeImage;
+//            model.selString = @"timeButtonClicked:";
+//        }
+//            break;
+//        case AliyunEditSouceClickTypeTranslation:
+//        {
+//            model.title = [@"转场" localString];
+//            model.showImage = uiConfig.translationImage;
+//            model.selString = @"translationButtonCliked:";
+//        }
+//            break;
+//        case AliyunEditSouceClickTypePaint:
+//        {
+//            model.title = [@"涂鸦" localString];
+//            model.showImage = uiConfig.paintImage;
+//            model.selString = @"paintButtonClicked:";
+//        }
+//            break;
+//        case AliyunEditSouceClickTypeEffectSound:
+//        {
+//            model.title = [@"音效" localString];
+//            model.showImage = uiConfig.soundImage;
+//            model.selString = @"soundButtonClicked:";
+//        }
+//            break;
         default:
             return nil;
     }
