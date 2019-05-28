@@ -1082,7 +1082,15 @@
         _isPreviewing =YES;
     }
 }
-
+- (void)photoButtonClicked {
+    AliyunMediaConfig *defauleMedia = [AliyunMediaConfig defaultConfig];
+    [[AlivcShortVideoRoute shared] registerHasRecordMusic:NO];
+    [[AlivcShortVideoRoute shared]registerMediaConfig:defauleMedia];
+    defauleMedia.videoOnly = YES;//仅仅展示视频
+    UIViewController *editVideoSelectVC = [[AlivcShortVideoRoute shared]alivcViewControllerWithType:AlivcViewControlEditVideoSelect];
+    [editVideoSelectVC setValue:@1 forKey:@"isOriginal"];
+    [self.navigationController pushViewController:editVideoSelectVC animated:YES];
+}
 -(void)deleteButtonClicked {
     [_clipManager deletePart];
     _magicCameraView.progressView.videoCount--;

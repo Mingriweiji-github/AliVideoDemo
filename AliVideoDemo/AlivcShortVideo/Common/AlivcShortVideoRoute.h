@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  短视频视图控制器类型 - 只支持专业版和标准版
-
+ 
  - AlivcViewControlEditParam:        短视频编辑参数配置页
  - AlivcViewControlEditVideoSelect:  短视频编辑视频选择页
  - AlivcViewControlEdit:             短视频编辑页
@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, AlivcViewControlType){
 #pragma mark - FinishBlock Define - 最终输出以block参数的形式给出
 /**
  编辑完成动作类型定义
-
+ 
  @param outputPath 编辑完成的视频的输出路径
  */
 typedef void (^AlivcEditFinishBlock)(NSString *outputPath);
@@ -69,7 +69,7 @@ typedef void (^AlivcCropFinishBlock)(NSString *outputPath);
 
 /**
  单例 - 短视频的界面管理器，路由机制
-
+ 
  @return 实例
  */
 + (instancetype)shared;
@@ -77,7 +77,7 @@ typedef void (^AlivcCropFinishBlock)(NSString *outputPath);
 
 /**
  注册一个视频配置，目前所有模块公用一个视频配置，想要不同的配置，获取视图控制器之前，调用此方法更新值
-
+ 
  @param config 视频配置
  */
 -(void)registerMediaConfig:(AliyunMediaConfig *__nullable)config;
@@ -86,7 +86,7 @@ typedef void (^AlivcCropFinishBlock)(NSString *outputPath);
 
 /**
  输入 短视频录制页面的配置
-
+ 
  @param config 录制页面UI配置类
  */
 -(void)registerRecordUIConfig:(AlivcRecordUIConfig *__nullable)config;
@@ -109,14 +109,20 @@ typedef void (^AlivcCropFinishBlock)(NSString *outputPath);
 
 /**
  配置视频编辑界面的单个视频路径
-
+ 
  @param singleVideoPath 编辑界面的单个视频路径
  */
 - (void)registerEditVideoPath:(NSString *__nullable)singleVideoPath;
 
 /**
+ 配置视频录制界面是否带音乐
+ 
+ @param hasRecordMusic 录制是否带音乐
+ */
+- (void)registerHasRecordMusic:(BOOL)hasRecordMusic;
+/**
  配置视频编辑界面的多个媒体资源的路径
-
+ 
  @param mediasPath 多个媒体资源的路径
  */
 - (void)registerEditMediasPath:(NSString *__nullable)mediasPath;
@@ -127,6 +133,8 @@ typedef void (^AlivcCropFinishBlock)(NSString *outputPath);
  @param block 完成动作
  */
 - (void)registerEditFinishBlock:(AlivcEditFinishBlock )block;
+
+
 
 #pragma mark - Crop 裁剪参数输入输出配置
 
@@ -145,6 +153,7 @@ typedef void (^AlivcCropFinishBlock)(NSString *outputPath);
  @return 功能接入口控制器
  */
 -(UIViewController *)alivcViewControllerWithType:(AlivcViewControlType )type;
+
 
 @end
 NS_ASSUME_NONNULL_END

@@ -202,7 +202,8 @@
     self.gifPictureButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.gifPictureButton setImage:_uiConfig.magicImage forState:UIControlStateNormal];
     [self.gifPictureButton setBackgroundColor:[UIColor clearColor]];
-    [self.gifPictureButton addTarget:self action:@selector(getGifPictureView) forControlEvents:UIControlEventTouchUpInside];
+//    [self.gifPictureButton addTarget:self action:@selector(getGifPictureView) forControlEvents:UIControlEventTouchUpInside];
+    [self.gifPictureButton addTarget:self action:@selector(jumpEditVC) forControlEvents:UIControlEventTouchUpInside];
     self.gifPictureButton.frame = CGRectMake(0, 0, 40, 70);
     self.gifPictureButton.center = CGPointMake(ScreenWidth/2+120, y);
     
@@ -327,7 +328,11 @@
     }
     return _leftView;
 }
-
+- (void)jumpEditVC {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(photoButtonClicked)]) {
+        [self.delegate photoButtonClicked];
+    }
+}
 /**
  动图按钮的点击事件
  */

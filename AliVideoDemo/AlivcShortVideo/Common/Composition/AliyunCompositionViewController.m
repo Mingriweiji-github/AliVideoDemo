@@ -182,7 +182,8 @@
     CGFloat top =  IS_IPHONEX ? 24 : 0;
     self.headerView = [[AliyunImportHeaderView alloc] initWithFrame:CGRectMake(0, top, ScreenWidth, 64)];
     self.headerView.delegate = self;
-    [self.headerView setTitle:NSLocalizedString(@"video_film_composition", nil)];
+//    [self.headerView setTitle:NSLocalizedString(@"video_film_composition", nil)];
+    [self.headerView setTitle:@"视频编辑"];
     [self.view addSubview:self.headerView];
 
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];

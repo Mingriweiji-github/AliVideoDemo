@@ -19,6 +19,12 @@
  */
 - (void)backButtonClicked;
 
+
+/**
+ 相册编辑按钮点击
+ */
+- (void)photoButtonClicked;
+
 /**
  闪光灯按钮被点击的代理方法
  

@@ -1657,8 +1657,10 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeDeterminate;
     hud.removeFromSuperViewOnHide = YES;
-    [hud.button setTitle:NSLocalizedString(@"cancel_camera_import", nil)
-                forState:UIControlStateNormal];
+//    [hud.button setTitle:NSLocalizedString(@"cancel_camera_import", nil)
+//                forState:UIControlStateNormal];
+    [hud.button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+
     [hud.button addTarget:self
                    action:@selector(cancelExport)
          forControlEvents:UIControlEventTouchUpInside];

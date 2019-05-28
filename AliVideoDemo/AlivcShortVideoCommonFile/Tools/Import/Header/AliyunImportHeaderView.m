@@ -77,7 +77,8 @@
         _buttonCancel = [UIButton buttonWithType:UIButtonTypeCustom];
         _buttonCancel.frame = CGRectMake(0, 20, 44, 44);
         [_buttonCancel setTitleColor:[UIColor whiteColor] forState:0];
-        [_buttonCancel setTitle:NSLocalizedString(@"cancel_camera_import", nil) forState:0];
+//        [_buttonCancel setTitle:NSLocalizedString(@"cancel_camera_import", nil) forState:0];
+        [_buttonCancel setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         [_buttonCancel addTarget:self action:@selector(buttonCancelClick) forControlEvents:UIControlEventTouchUpInside];
         _buttonCancel.titleLabel.font = [UIFont systemFontOfSize:14];
     }

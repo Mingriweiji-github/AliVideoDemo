@@ -8,7 +8,7 @@
 
 #import "AlivcShortVideoRoute.h"
 #import "AliyunIConfig.h"
-//#import "AliyunEffectPrestoreManager.h"
+#import "AliyunEffectPrestoreManager.h"
 
 @interface AlivcShortVideoRoute()
 
@@ -19,6 +19,8 @@
 @property (nonatomic, strong)AlivcEditUIConfig *editUIConfig;//编辑UI配置类
 
 @property (nonatomic, strong)NSString *editInputVideoPath;//编辑传入参数：单个视频的本地路径
+
+@property (nonatomic, assign)BOOL hasRecordMusic;//录制的时候是否带音乐
 
 @property (nonatomic, strong)NSString *editInputMediasPath;//编辑传入参数：多个媒体资源的本地存放文件夹路径
 
@@ -35,7 +37,7 @@ static AlivcShortVideoRoute *_instance = nil;
 @implementation AlivcShortVideoRoute
 
 + (instancetype)shared{
-   
+    
     return [[self alloc]init];
 }
 
@@ -46,7 +48,7 @@ static AlivcShortVideoRoute *_instance = nil;
             _instance = [super allocWithZone:zone];
             [AlivcImage setImageBundleName:@"AlivcShortVideoImage"];
             [AliyunIConfig setConfig:[[AliyunIConfig alloc]init]];//注册功能配置类
-//            [[[AliyunEffectPrestoreManager alloc]init] insertInitialData];//初始化动图资源
+            [[[AliyunEffectPrestoreManager alloc]init] insertInitialData];//初始化动图资源
         }
         
     });
@@ -63,11 +65,11 @@ static AlivcShortVideoRoute *_instance = nil;
 }
 
 - (UIViewController *)alivcViewControllerWithType:(AlivcViewControlType )type{
-
     
-//    if (type == AlivcViewControlEdit) {//暂时不放开直接从编辑页面进入,因为录制直接进编辑，可以用到这个，所以开启
-//        type = AlivcViewControlEditVideoSelect;
-//    }
+    
+    //    if (type == AlivcViewControlEdit) {//暂时不放开直接从编辑页面进入,因为录制直接进编辑，可以用到这个，所以开启
+    //        type = AlivcViewControlEditVideoSelect;
+    //    }
     UIViewController *controller;
     switch (type) {
         case AlivcViewControlEditParam:
@@ -103,6 +105,8 @@ static AlivcShortVideoRoute *_instance = nil;
                 [controller setValue:self.editFinishBlock forKey:@"finishBlock"];
             }
             
+            [controller setValue:@(self.hasRecordMusic) forKey:@"hasRecordMusic"];
+            
         }
             break;
         case AlivcViewControlRecordParam:
@@ -115,7 +119,7 @@ static AlivcShortVideoRoute *_instance = nil;
         {//短视频拍摄页
             Class viewControllerClass = NSClassFromString(@"AliyunMagicCameraViewController");
             controller = [[viewControllerClass alloc]init];
-
+            
             if (self.mediaConfig) {
                 [controller setValue:self.mediaConfig forKey:@"quVideo"];
             }
@@ -204,6 +208,10 @@ static AlivcShortVideoRoute *_instance = nil;
 
 - (void)registerCropFinishBlock:(AlivcCropFinishBlock)block{
     _cropFinishBlock = block;
+}
+
+- (void)registerHasRecordMusic:(BOOL)hasRecordMusic {
+    _hasRecordMusic = hasRecordMusic;
 }
 
 #pragma mark - other

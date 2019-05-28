@@ -41,22 +41,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AliVideoDemo/AlivcShortVideo/Common/Composition/AliyunCompositionViewController.m"
-            timestampString = "580376278.544338"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "-setupSDKBaseVersionUI"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/Common/ConfigureParam/AliyunConfigureViewController.m"
             timestampString = "580376282.130385"
             startingColumnNumber = "9223372036854775807"

@@ -36,8 +36,9 @@
 
   UIButton *backButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
   backButton.frame = CGRectMake(4, StatusBarHeight, 44, 44);
-  [backButton setTitle:NSLocalizedString(@"cancel_camera_import", nil)
-              forState:(UIControlStateNormal)];
+//  [backButton setTitle:NSLocalizedString(@"cancel_camera_import", nil)
+//              forState:(UIControlStateNormal)];
+    [backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
   [backButton setTitleColor:[UIColor whiteColor]
                    forState:(UIControlStateNormal)];
   backButton.titleLabel.font = [UIFont systemFontOfSize:14.f];
