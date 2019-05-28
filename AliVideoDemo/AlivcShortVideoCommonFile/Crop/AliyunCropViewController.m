@@ -19,7 +19,8 @@
 #import "AliyunPathManager.h"
 #import "AVC_ShortVideo_Config.h"
 #import "MBProgressHUD+AlivcHelper.h"
-
+#import "AlivcShortVideoRoute.h"
+#import "AliyunEditViewController.h"
 static NSString *const PlayerItemStatus = @"_playerItem.status";
 
 typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
@@ -322,7 +323,8 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
 }
 
 - (void)cropTaskOnComplete {
-    NSLog(@"TestLog, %@:%@", @"log_crop_complete_time", @([NSDate date].timeIntervalSince1970));
+//    NSLog(@"TestLog, %@:%@", @"log_crop_complete_time", @([NSDate date].timeIntervalSince1970));
+    NSLog(@"裁剪完成输出路径=%@",self.cutInfo.outputPath);
     self.progressView.progress = 0;
     if (_isCancel) {
         _isCancel = NO;
@@ -335,9 +337,23 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
         }
         _cutInfo.endTime = _cutInfo.endTime - _cutInfo.startTime;
         _cutInfo.startTime = 0;
-        if (self.delegate) {
-            [self.delegate cropViewControllerFinish:self.cutInfo viewController:self];
-        }
+        NSLog(@"avAsset=%@,phAsset=%@",self.cutInfo.avAsset,self.cutInfo.phAsset);
+//        if (self.delegate) {//回调到选择相册视频
+//            [self.delegate cropViewControllerFinish:self.cutInfo viewController:self];
+//        }
+        [[AlivcShortVideoRoute shared]registerEditVideoPath:_cutInfo.outputPath];
+        [[AlivcShortVideoRoute shared]registerEditMediasPath:nil];
+        UIViewController *editVC = [[AlivcShortVideoRoute shared]alivcViewControllerWithType:AlivcViewControlEdit];
+//        if ([editVC isKindOfClass:[AliyunEditViewController class]]) {
+//            AliyunEditViewController *vc = (AliyunEditViewController *)editVC;
+//            if(self.music && ![self.music.name isEqualToString:@"无音乐"]){
+//                vc.hasRecordMusic = YES;
+//            }else{
+//                vc.hasRecordMusic = NO;
+//            }
+//        }
+        [self.navigationController pushViewController:editVC animated:YES];
+        
     }
     _bottomView.cropButton.enabled =YES;
 }
@@ -425,7 +441,7 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
     _cutPanel.fillBackgroundColor = _cutInfo.backgroundColor;
     _cutPanel.useHW = _cutInfo.gpuCrop;
     
-    NSLog(@"TestLog, %@:%@", @"log_crop_start_time", @([NSDate date].timeIntervalSince1970));
+//    NSLog(@"TestLog, %@:%@", @"log_crop_start_time", @([NSDate date].timeIntervalSince1970));
 
     int res =[_cutPanel startCrop];
     if (res == -100002){

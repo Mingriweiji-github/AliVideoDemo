@@ -1357,21 +1357,14 @@
         
         //跳转处理
         NSString *outputPath = _recorder.outputPath;
-        
         //        UISaveVideoAtPathToSavedPhotosAlbum(_recorder.outputPath, self, nil, nil);
-        
         if (self.finishBlock) {
             self.finishBlock(outputPath);
         }else{
+            #pragma mark 编辑视频页
             [[AlivcShortVideoRoute shared]registerEditVideoPath:outputPath];
             [[AlivcShortVideoRoute shared]registerEditMediasPath:nil];
-//            if(self.music && ![self.music.name isEqualToString:@"无音乐"]){
-//                [[AlivcShortVideoRoute shared] registerHasRecordMusic:YES];
-//            }else{
-//                [[AlivcShortVideoRoute shared] registerHasRecordMusic:NO];
-//            }
             UIViewController *editVC = [[AlivcShortVideoRoute shared]alivcViewControllerWithType:AlivcViewControlEdit];
-            
             [self.navigationController pushViewController:editVC animated:YES];
         }
         
@@ -1425,6 +1418,9 @@
     return _filterView;
 }
 #pragma mark 裁剪完成 AliyunPhotoViewControllerDelegate
+- (void)backBtnClick:(UIViewController *)vc{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)cropFinished:(UIViewController *)cropViewController videoPath:(NSString *)videoPath sourcePath:(NSString *)sourcePath {
     if (![[NSFileManager defaultManager] fileExistsAtPath:videoPath]) {
         NSLog(@"文件不存在!");

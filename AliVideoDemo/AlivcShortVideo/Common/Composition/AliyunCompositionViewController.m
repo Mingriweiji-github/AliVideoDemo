@@ -478,7 +478,7 @@
 -(void)cropViewControllerExit {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+//裁剪完成
 - (void)cropViewControllerFinish:(AliyunMediaConfig *)mediaInfo viewController:(UIViewController *)controller {
     [self.navigationController popViewControllerAnimated:YES];
     __weak typeof(self)weakSelf =self;
@@ -504,17 +504,17 @@
         [self getThumbnailWithAsset:_cropCompositionInfo.asset atTime:mediaInfo.startTime complete:^(UIImage *image) {
             if (!image) {//取不到缩略图重新取一下
                 NSLog(@"--------image is null");
-                [weakSelf getThumbnailWithAsset:_cropCompositionInfo.asset atTime:mediaInfo.startTime+0.5 complete:^(UIImage *image) {
+                [weakSelf getThumbnailWithAsset:weakSelf.cropCompositionInfo.asset atTime:mediaInfo.startTime+0.5 complete:^(UIImage *image) {
                     if (!image) {
                         NSLog(@"--------image is null");
                     }
-                    _cropCompositionInfo.thumbnailImage = image;
+                    weakSelf.cropCompositionInfo.thumbnailImage = image;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [weakSelf.pickView refresh];
                     });
                 }];
             }else{
-                _cropCompositionInfo.thumbnailImage = image;
+                weakSelf.cropCompositionInfo.thumbnailImage = image;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf.pickView refresh];
                 });

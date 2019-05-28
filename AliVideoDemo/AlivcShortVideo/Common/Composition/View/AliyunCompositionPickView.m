@@ -152,7 +152,7 @@
     AliyunCompositionInfo *model = self.assets[indexPath.item];
     [_delegate pickViewDidSelectCompositionInfo:model];
 }
-
+#pragma mark 设置裁剪时间
 - (void)finishButtonClicked {
     if (!_assets.count) return;
     if ([self durationWithCurrentAssets] > 300) {
