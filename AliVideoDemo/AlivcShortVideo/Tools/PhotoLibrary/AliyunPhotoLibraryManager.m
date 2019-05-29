@@ -658,5 +658,48 @@ static CGFloat kQUScreenScale;
     CGImageRelease(cgimg);
     return img;
 }
+/**
+ iOS从视频地址中获取音频
+ 1.从URL获得AVAssert
+ 2.设置AVAssetExportSession的presetName和outputFileType 分别为AVAssetExportPresetAppleM4A和AVFileTypeAppleM4A
+ 3.异步导出[exportSession exportAsynchronously]
+
+ 1.因为iOS的输出格式不支持.mp3,只能设置为.m4a的音频文件.
+ 2.m4a ->mp3: 应该m4a->pcm->mp3，
+ 3.合并两个音频必须两个m4a文件？
+
+ **/
+-(void)getAudioWithAVAsset:(NSString *)videoPath outPutVideo:(void(^)(NSString * audioPath))success{
+    float startTime = 0;
+    float endTime = 10;
+    AVAsset *asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:videoPath]];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *audioPath = [documentsDirectory stringByAppendingPathComponent:@"bgMusic.m4a"];//music.m4a
+    NSURL *audioURL = [NSURL fileURLWithPath:audioPath];
+
+    AVAssetExportSession *exportSession=[AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetAppleM4A];
+    exportSession.outputURL= audioURL;
+    exportSession.outputFileType=AVFileTypeAppleM4A;//.mp3: AVFileTypeMPEGLayer3 m4a:AVFileTypeAppleM4A
+    
+    CMTime vocalStartMarker = CMTimeMake((int)(floor(startTime * 100)), 100);
+    CMTime vocalEndMarker = CMTimeMake((int)(ceil(endTime * 100)), 100);
+    
+    CMTimeRange exportTimeRange = CMTimeRangeFromTimeToTime(vocalStartMarker, vocalEndMarker);
+    exportSession.timeRange= exportTimeRange;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:audioPath]) {
+        [[NSFileManager defaultManager] removeItemAtPath:audioPath error:nil];
+    }
+    
+    [exportSession exportAsynchronouslyWithCompletionHandler:^{
+        if (exportSession.status==AVAssetExportSessionStatusFailed) {
+            NSLog(@">>>>>>getAudioWithAVAsset failed<<<<<<<<");
+        }
+        else {
+            NSLog(@">>>>>>getAudioWithAVAsset success<<<<<<<: %@",audioPath);
+            success(audioPath);
+        }
+    }];
+}
 
 @end

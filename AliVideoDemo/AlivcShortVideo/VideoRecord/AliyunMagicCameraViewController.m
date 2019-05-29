@@ -1040,17 +1040,6 @@
     }
 }
 
-- (void)musicButtonClicked
-{
-    AliyunMusicPickViewController *vc =[[AliyunMusicPickViewController alloc] init];
-    vc.delegate = self;
-    vc.duration = _clipManager.maxDuration;
-    vc.selectedMusic = self.music;
-    vc.selectedTab = self.tab;
-    self.needStopPreview =NO;
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
 - (void)filterButtonClicked {
     [self hideFilterView:NO];
 }
@@ -1087,7 +1076,7 @@
 - (void)backBtnClick {
     [self.navigationController popViewControllerAnimated:YES];
 }
-#pragma mark 相册裁剪
+#pragma mark 视频裁剪选择页
 - (void)photoButtonClicked {
     //短视频裁剪选择页
     UIViewController *vc = [[AliyunMediator shared] cropModule];// AliyunPhotoViewController
@@ -1095,6 +1084,33 @@
     [vc setValue:self forKey:@"delegate"];
     [self.navigationController pushViewController:vc animated:YES];
 }
+#pragma mark 音乐click
+- (void)musicButtonClicked{
+    //    AliyunMusicPickViewController *vc =[[AliyunMusicPickViewController alloc] init];
+    //    vc.delegate = self;
+    //    vc.duration = _clipManager.maxDuration;
+    //    vc.selectedMusic = self.music;
+    //    vc.selectedTab = self.tab;
+    //    self.needStopPreview =NO;
+    //    [self.navigationController pushViewController:vc animated:YES];
+    UIViewController *vc = [[AliyunMediator shared] cropModule];// AliyunPhotoViewController
+    AliyunPhotoViewController *photo = (AliyunPhotoViewController *)vc;
+    [photo setValue:self.mediaConfig forKey:@"cutInfo"];
+    [photo setValue:self forKey:@"delegate"];
+    photo.needBackWithMusic = YES;
+    [self.navigationController pushViewController:photo animated:YES];
+}
+/**
+ 特殊需求：选择视频后返回该视频的音频
+ @param audioPath NSString
+ */
+- (void)backMagicPageWithAudio:(NSString *)audioPath{
+    NSLog(@"Magic成功获取剪切后音频>>>>>>>>%@",audioPath);
+    [MBProgressHUD showSucessMessage:@"背景音乐获取成功" inView:self.view];
+    //todo:播放背景音乐
+    
+}
+
 -(AliyunMediaConfig *)mediaConfig{
     
     if (!_mediaConfig) {//默认配置
@@ -1421,6 +1437,14 @@
 #pragma mark 裁剪完成 AliyunPhotoViewControllerDelegate
 - (void)backBtnClick:(UIViewController *)vc{
     [self.navigationController popViewControllerAnimated:YES];
+}
+/**
+ 特殊需求：选择视频后返回该视频的音频
+ */
+- (void)backWithAssert:(NSString *)audioPath{
+    
+    NSLog(@"返回MagicVC音频元素assert=%@",audioPath);
+    
 }
 - (void)cropFinished:(UIViewController *)cropViewController videoPath:(NSString *)videoPath sourcePath:(NSString *)sourcePath {
     if (![[NSFileManager defaultManager] fileExistsAtPath:videoPath]) {

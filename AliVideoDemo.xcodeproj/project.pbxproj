@@ -1627,6 +1627,10 @@
 				188C8BAF2295293800BEBD72 /* ViewController.m */,
 				188C8D672295487700BEBD72 /* AliyunMagicCameraViewController.h */,
 				188C8D682295487700BEBD72 /* AliyunMagicCameraViewController.m */,
+				18E20FE2229BE90A0086C3A5 /* AliyunPhotoViewController.h */,
+				18E20FE3229BE90A0086C3A5 /* AliyunPhotoViewController.m */,
+				18E20FDE229BE90A0086C3A5 /* AliyunCropViewController.h */,
+				18E20FDF229BE90A0086C3A5 /* AliyunCropViewController.m */,
 			);
 			name = RecordController;
 			sourceTree = "<group>";
@@ -1761,10 +1765,6 @@
 		18E20FD9229BE90A0086C3A5 /* Crop */ = {
 			isa = PBXGroup;
 			children = (
-				18E20FE2229BE90A0086C3A5 /* AliyunPhotoViewController.h */,
-				18E20FE3229BE90A0086C3A5 /* AliyunPhotoViewController.m */,
-				18E20FDE229BE90A0086C3A5 /* AliyunCropViewController.h */,
-				18E20FDF229BE90A0086C3A5 /* AliyunCropViewController.m */,
 				18E20FDA229BE90A0086C3A5 /* AliyunCropThumbnailView.h */,
 				18E20FDB229BE90A0086C3A5 /* AliyunCropThumbnailView.m */,
 				18E20FDC229BE90A0086C3A5 /* AliyunCropViewBottomView.h */,

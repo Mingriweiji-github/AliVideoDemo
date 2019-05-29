@@ -190,7 +190,15 @@
     //AlivcRefresh
     [self fetchPhotoData];
 }
-
+/**
+ 特殊需求：选择视频后返回该视频的音频
+ @param audioPath NSString
+ */
+- (void)backPhotoPageWithAudio:(NSString *)audioPath{
+    if (self.delegate) {
+        [self.delegate backMagicPageWithAudio:audioPath];
+    }
+}
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     __weak typeof(self)weakSelf = self;
     AliyunAssetModel *model = _libraryDataArray[indexPath.row];
@@ -217,7 +225,6 @@
                         weakSelf.cutInfo.outputSize  =  CGSizeMake(weakSelf.cutInfo.outputSize.width, [weakSelf oushu:height]);
                     }
                 }
-
                 weakSelf.cutInfo.startTime = 0.f;
                 weakSelf.cutInfo.endTime = 0.f;
                 weakSelf.cutInfo.sourceDuration = 0.f;
@@ -230,6 +237,10 @@
                 NSURL *url = (NSURL *)[[(AVURLAsset *)avAsset URL] fileReferenceURL];
                 weakSelf.cutInfo.sourcePath = url.path;
                 AliyunCropViewController *cut = [[AliyunCropViewController alloc] init];
+                //转音频专用
+                cut.audioAsset = avAsset;
+                cut.needBackWithMusic = self.needBackWithMusic;
+                
                 cut.cutInfo = weakSelf.cutInfo;
                 cut.delegate = (id<AliyunCropViewControllerDelegate>)weakSelf;
                 [weakSelf.navigationController pushViewController:cut animated:YES];

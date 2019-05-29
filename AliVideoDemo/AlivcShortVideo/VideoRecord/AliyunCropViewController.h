@@ -26,6 +26,12 @@
  假裁剪，获取裁剪时间段，不真正裁剪视频
  */
 @property (nonatomic, assign) BOOL fakeCrop;
+
+@property (nonatomic, assign)BOOL needBackWithMusic;//视频转音乐用
+
+@property (nonatomic, strong)AVAsset *audioAsset;//转音频专用
+
+
 @end
 
 
@@ -44,5 +50,10 @@
  */
 - (void)cropViewControllerFinish:(AliyunMediaConfig *)mediaInfo viewController:(UIViewController *)controller;
 
+/**
+ 特殊需求：选择视频后返回该视频的音频
+ @param audioPath NSString
+ */
+- (void)backPhotoPageWithAudio:(NSString *)audioPath;
 
 @end

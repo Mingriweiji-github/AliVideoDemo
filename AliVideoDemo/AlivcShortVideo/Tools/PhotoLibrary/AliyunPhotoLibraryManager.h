@@ -113,5 +113,14 @@ typedef struct VideoDurationRange {
 - (void)saveGifWithAsset:(PHAsset *)asset maxSize:(CGSize)maxSize outputPath:(NSString *)path completion:(void (^)(NSError *error))completion;
 
 - (void)savePhotoWithAsset:(PHAsset *)asset maxSize:(CGSize)maxSize outputPath:(NSString *)path completion:(void (^)(NSError *error, UIImage * _Nullable result))completion;
+#pragma mark
+/**
+ iOS从视频中获取音频
+ 1.从URL获得AVAssert
+ 2.设置AVAssetExportSession的presetName和outputFileType 分别为AVAssetExportPresetAppleM4A和AVFileTypeAppleM4A
+ 3.异步导出[exportSession exportAsynchronously]
+ **/
+-(void)getAudioWithAVAsset:(NSString *)videoPath outPutVideo:(void(^)(NSString *audioPath))success;
+
 
 @end

@@ -321,32 +321,44 @@ typedef NS_ENUM(NSInteger, AliyunCropPlayerStatus) {
     _alertView = nil;
     _hasError = YES;
 }
-
+#pragma mark 视频剪切完成
 - (void)cropTaskOnComplete {
 //    NSLog(@"TestLog, %@:%@", @"log_crop_complete_time", @([NSDate date].timeIntervalSince1970));
-    NSLog(@"裁剪完成输出路径=%@",self.cutInfo.outputPath);
-    self.progressView.progress = 0;
-    if (_isCancel) {
-        _isCancel = NO;
-    } else {
-        [_alertView dismissWithClickedButtonIndex:0 animated:YES];
-        _alertView = nil;
-        if (_hasError) {
-            _hasError = NO;
-            return;
+    NSLog(@"视频剪切完成-输出路径=%@",self.cutInfo.outputPath);
+    if (self.needBackWithMusic) {//to:视频编辑音乐
+            [MBProgressHUD showMessage:@"获取背景音乐中" inView:self.view];
+            [[AliyunPhotoLibraryManager sharedManager] getAudioWithAVAsset:self.cutInfo.outputPath outPutVideo:^(NSString *audioPath) {
+                NSLog(@"get audio path successed>>>>>>>%@",audioPath);
+                if (self.delegate) {//todo:返回path
+                    [self.delegate backPhotoPageWithAudio:audioPath];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSInteger index=[[self.navigationController viewControllers]indexOfObject:self];
+                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:index-2]animated:YES];
+                });
+            }];
+    }else{//to :  视频编辑页
+        self.progressView.progress = 0;
+        if (_isCancel) {
+            _isCancel = NO;
+        } else {
+            [_alertView dismissWithClickedButtonIndex:0 animated:YES];
+            _alertView = nil;
+            if (_hasError) {
+                _hasError = NO;
+                return;
+            }
+            _cutInfo.endTime = _cutInfo.endTime - _cutInfo.startTime;
+            _cutInfo.startTime = 0;
+            NSLog(@"avAsset=%@,phAsset=%@",self.cutInfo.avAsset,self.cutInfo.phAsset);
+            //        if (self.delegate) {//回调到选择相册视频
+            //            [self.delegate cropViewControllerFinish:self.cutInfo viewController:self];
+            //        }
+            [[AlivcShortVideoRoute shared]registerEditVideoPath:_cutInfo.outputPath];
+            [[AlivcShortVideoRoute shared]registerEditMediasPath:nil];
+            UIViewController *editVC = [[AlivcShortVideoRoute shared]alivcViewControllerWithType:AlivcViewControlEdit];
+            [self.navigationController pushViewController:editVC animated:YES];
         }
-        _cutInfo.endTime = _cutInfo.endTime - _cutInfo.startTime;
-        _cutInfo.startTime = 0;
-        NSLog(@"avAsset=%@,phAsset=%@",self.cutInfo.avAsset,self.cutInfo.phAsset);
-//        if (self.delegate) {//回调到选择相册视频
-//            [self.delegate cropViewControllerFinish:self.cutInfo viewController:self];
-//        }
-        #pragma mark 视频编辑
-        [[AlivcShortVideoRoute shared]registerEditVideoPath:_cutInfo.outputPath];
-        [[AlivcShortVideoRoute shared]registerEditMediasPath:nil];
-        UIViewController *editVC = [[AlivcShortVideoRoute shared]alivcViewControllerWithType:AlivcViewControlEdit];
-        [self.navigationController pushViewController:editVC animated:YES];
-        
     }
     _bottomView.cropButton.enabled =YES;
 }

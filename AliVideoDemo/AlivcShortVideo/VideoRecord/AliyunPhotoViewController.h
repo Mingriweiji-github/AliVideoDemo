@@ -30,18 +30,27 @@
 
 - (void)backBtnClick:(UIViewController *)vc;
 
+
+/**
+ 特殊需求：选择视频后返回该视频的音频
+ @param audioPath NSString
+ */
+- (void)backMagicPageWithAudio:(NSString *)audioPath;
+
+
 @end
 
 @interface AliyunPhotoViewController : UIViewController
-
-
 /**
  视频配置
  */
 @property (nonatomic, strong) AliyunMediaConfig *cutInfo;
-
 /**
  代理
  */
 @property (nonatomic, weak) id<AliyunPhotoViewControllerDelegate> delegate;
+
+
+@property (nonatomic, assign)BOOL needBackWithMusic;//视频转音乐用
+
 @end
