@@ -329,7 +329,92 @@
     [self.avPlayer seekToTime:kCMTimeZero];
     [self.avPlayer play];
 }
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self starPreview];
+    if (_recordingDuration >= _quVideo.minDuration) {
+        [self.magicCameraView enableFinishButton:YES];
+    } else {
+        [self.magicCameraView enableFinishButton:NO];
+    }
+    _magicCameraView.musicButton.enabled = ![_clipManager partCount];
+    NSLog(@"%zd",[_clipManager partCount]);
+    [_magicCameraView.flashButton setImage:_uiConfig.ligheImageClose forState:0];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];//录制模块禁止自动熄屏
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [self startRetainCameraRotate];
+    //禁用侧滑手势
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    self.magicCameraView.userInteractionEnabled = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self startRetainCameraRotate];
+    });
+    
+    if (self.avPlayer) {
+        [self.avPlayer seekToTime:kCMTimeZero];
+        [self.avPlayer play];
+    }
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (self.needStopPreview) {
+        [self stopPreview];
+    }
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    //启用侧滑手势
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    [self.motionManager stopDeviceMotionUpdates];
+    if (self.avPlayer) {
+        [self.avPlayer pause];
+    }
+}
+- (void)dealloc
+{
+    NSLog(@"~~~~~~%s delloc", __PRETTY_FUNCTION__);
+    [_recorder stopPreview];
+    [_recorder destroyRecorder];
+    _recorder = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.timer invalidate];
+    self.timer = nil;
+    self.avPlayer = nil;
+}
+// 支持设备自动旋转
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+// 支持竖屏显示
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+- (void)appDidEnterBackground:(NSNotification *)noti
+{
+    if ([self.navigationController.childViewControllers lastObject] != self) {
+        return;
+    }
+    [self stopPreview];
+}
+- (void)appWillEnterForeground:(NSNotification *)noti
+{
+    if ([self.navigationController.childViewControllers lastObject] != self) {
+        return;
+    }
+    [self starPreview];
+    _magicCameraView.flashButton.userInteractionEnabled = (_recorder.cameraPosition != 0);
+    
+    AliyunIRecorderTorchMode mode = _recorder.torchMode;
+    if (mode == AliyunIRecorderTorchModeOn) {
+        [_magicCameraView.flashButton setImage:_uiConfig.ligheImageOpen forState:0];
+    } else if (mode == AliyunIRecorderTorchModeOff) {
+        [_magicCameraView.flashButton setImage:_uiConfig.ligheImageClose forState:0];
+    } else {
+        [_magicCameraView.flashButton setImage:_uiConfig.ligheImageAuto forState:0];
+    }
+}
 /**
  设置UI
  */
@@ -489,7 +574,7 @@
         [self stopPreview];
         _suspend = YES;
         if ([AliyunIConfig config].recordType == AliyunIRecordActionTypeClick) {
-            [self.magicCameraView recordButtonTouchDown];
+//            [self.magicCameraView recordButtonTouchDown];
             [self.magicCameraView recordButtonTouchUp];
         }else{
             [self.magicCameraView recordButtonTouchUp];
@@ -566,75 +651,6 @@
         [self.effectFilterItems addObject:effectFilter];
     }
 }
-
-//// 设置人脸动图数据
-//- (void)setupPasterEffectData
-//{
-//    AliyunPasterInfo *empty1 = [[AliyunPasterInfo alloc] init];
-//    empty1.icon = [[NSBundle mainBundle] pathForResource:@"QPSDK.bundle/MV_none@2x" ofType:@"png"];
-//    empty1.bundlePath = @"123";
-//
-//    NSString *filterName = [NSString stringWithFormat:@"hanfumei-800"];
-//    NSString *path = [[NSBundle mainBundle] pathForResource:filterName ofType:nil];
-//
-//    AliyunPasterInfo *paster = [[AliyunPasterInfo alloc] initWithBundleFile:path];
-//
-//    [self.effectGifItems removeAllObjects];
-//    [self.effectGifItems addObject:empty1];
-//    [self.effectGifItems addObject:paster];
-//    [self.effectGifItems addObjectsFromArray:self.allPasterInfoArray];
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [_magicCameraView refreshUIWithGifItems:self.effectGifItems];
-//    });
-//}
-//
-//
-//// 动图数据请求 + ui更新
-//- (void)fetchData
-//{
-//#warning 请求资源
-//    [self.allPasterInfoArray removeAllObjects];
-//    AliyunHttpClient *httpClient = [[AliyunHttpClient alloc] initWithBaseUrl:kQPResourceHostUrl];
-//    //    NSDictionary *param = @{@"bundleId":BundleID};
-//    NSDictionary *param = @{@"type":@(1)};
-//    [httpClient GET:@"resource/getFrontPasterList" parameters:param completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-//
-//        if (error) {
-//            NSArray *groups = [self loadLocalData];
-//            if (self.allPasterInfoArray.count>0) {
-//                [self.allPasterInfoArray removeAllObjects];
-//            }
-//            if (groups.count > 0) {
-//                for (AliyunPasterInfoGroup *pasterInfoGroup in groups) {
-//                    [self.allPasterInfoArray addObjectsFromArray:pasterInfoGroup.pasterList];
-//                }
-//            }
-//            [self setupPasterEffectData];
-//
-//            return ;
-//        }
-//
-//        //        for (NSDictionary *dict in responseObject) {
-//        //            AliyunPasterInfoGroup *group = [[AliyunPasterInfoGroup alloc] initWithDictionary:dict error:nil];
-//        //            for (AliyunPasterInfo *info in group.pasterList) {
-//        //                info.groupName = group.name;
-//        //                [self.allPasterInfoArray addObject:info];
-//        //            }
-//        //        }
-//
-//        NSArray *pastList = responseObject[@"data"];
-//        if([pastList isKindOfClass:[NSArray class]]){
-//            for (NSDictionary *dict in pastList) {
-//                AliyunPasterInfo *info = [[AliyunPasterInfo alloc] initWithDict:dict];
-//                [self.allPasterInfoArray addObject:info];
-//            }
-//        }
-//
-//        [self setupPasterEffectData];
-//    }];
-//}
-//
-
 - (AliyunDBHelper *)dbHelper {
     
     if (!_dbHelper) {
@@ -643,103 +659,6 @@
     return _dbHelper;
 }
 
-
-////本地的动图资源
-//- (NSArray *)loadLocalData
-//{
-//    return [self.resourceManager loadLocalFacePasters];
-//}
-
-// 支持设备自动旋转
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-// 支持竖屏显示
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (void)appDidEnterBackground:(NSNotification *)noti
-{
-    if ([self.navigationController.childViewControllers lastObject] != self) {
-        return;
-    }
-    [self stopPreview];
-}
-
-- (void)appWillEnterForeground:(NSNotification *)noti
-{
-    if ([self.navigationController.childViewControllers lastObject] != self) {
-        return;
-    }
-    
-    
-    [self starPreview];
-    _magicCameraView.flashButton.userInteractionEnabled = (_recorder.cameraPosition != 0);
-    
-    AliyunIRecorderTorchMode mode = _recorder.torchMode;
-    if (mode == AliyunIRecorderTorchModeOn) {
-        [_magicCameraView.flashButton setImage:_uiConfig.ligheImageOpen forState:0];
-    } else if (mode == AliyunIRecorderTorchModeOff) {
-        [_magicCameraView.flashButton setImage:_uiConfig.ligheImageClose forState:0];
-    } else {
-        [_magicCameraView.flashButton setImage:_uiConfig.ligheImageAuto forState:0];
-    }
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self starPreview];
-    if (_recordingDuration >= _quVideo.minDuration) {
-        [self.magicCameraView enableFinishButton:YES];
-    } else {
-        [self.magicCameraView enableFinishButton:NO];
-    }
-    _magicCameraView.musicButton.enabled = ![_clipManager partCount];
-    NSLog(@"%zd",[_clipManager partCount]);
-    [_magicCameraView.flashButton setImage:_uiConfig.ligheImageClose forState:0];
-    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];//录制模块禁止自动熄屏
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-    [self startRetainCameraRotate];
-    //禁用侧滑手势
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    self.magicCameraView.userInteractionEnabled = YES;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self startRetainCameraRotate];
-    });
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    if (self.needStopPreview) {
-        [self stopPreview];
-    }
-    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-    //启用侧滑手势
-    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    [self.motionManager stopDeviceMotionUpdates];
-}
-
-- (void)dealloc
-{
-    NSLog(@"~~~~~~%s delloc", __PRETTY_FUNCTION__);
-    [_recorder stopPreview];
-    [_recorder destroyRecorder];
-    _recorder = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.timer invalidate];
-    self.timer = nil;
-//#if SDK_VERSION == SDK_VERSION_CUSTOM
-//    [[AlivcShortVideoFaceUnityManager shareManager] destoryItems];
-//#endif
-    
-}
 
 
 /**
@@ -934,11 +853,11 @@
     if (count == 0) {
         [self.countLabel removeFromSuperview];
         if ([AliyunIConfig config].recordType == AliyunIRecordActionTypeClick) {
-            [self.magicCameraView recordButtonTouchDown];
+//            [self.magicCameraView recordButtonTouchDown];
             [self.magicCameraView recordButtonTouchUp];
             
         }else{
-            [self.magicCameraView recordButtonTouchDown];
+//            [self.magicCameraView recordButtonTouchDown];
         }
         
         self.magicCameraView.circleBtn.hidden = NO;
@@ -1270,7 +1189,7 @@
         [_recorder finishRecording];
     }
 }
-#pragma mark 自动跳转编辑页-下一页
+#pragma mark 录制完成的回调
 - (void)recorderDidFinishRecording {
     NSLog(@"---------->完成录制回调");
     self.magicCameraView.backButton.enabled = YES;
@@ -1280,7 +1199,7 @@
     if (_suspend == NO) {
         if ([AliyunIConfig config].recordType == AliyunIRecordActionTypeClick) {
             if (self.magicCameraView.recording) {
-                [self.magicCameraView recordButtonTouchDown];
+//                [self.magicCameraView recordButtonTouchDown];
                 [self.magicCameraView recordButtonTouchUp];
             }
             
