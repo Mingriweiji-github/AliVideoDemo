@@ -62,20 +62,6 @@
  */
 @property (nonatomic, strong) AliyunMagicCameraView *magicCameraView;
 @property (nonatomic, strong) NSMutableArray *effectFilterItems; //滤镜数组
-//@property (nonatomic, strong) NSMutableArray<AliyunPasterInfo*> *effectGifItems; //动图数组
-//@property (nonatomic, strong) NSMutableArray *allPasterInfoArray; //网络请求到的动图资源
-//
-///**
-// 下载管理（动图）
-// */
-//@property (nonatomic, strong) AliyunDownloadManager *downloadManager;
-//
-///**
-// 资源管理（动图）
-// */
-//@property (nonatomic, strong) AliyunResourceManager *resourceManager;
-
-
 /**
  最新的摄像头位置（前置还是后置）
  */
@@ -187,6 +173,8 @@
 @property (nonatomic, assign) NSInteger cameraRotate;//相机旋转角度
 
 @property(nonatomic, strong) AliyunEffectFilterView *filterView;
+
+@property (nonatomic, strong)AVPlayer *avPlayer;//音频播放
 
 @end
 
@@ -329,6 +317,17 @@
     }
     
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    //实现背景音乐连续播放
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+}
+/**
+ *  背景音乐播放完成通知
+*  @param noti 通知对象
+ */
+- (void)playItemDidEnd:(NSNotification *)noti{
+    // 跳到最新的时间点开始播放
+    [self.avPlayer seekToTime:kCMTimeZero];
+    [self.avPlayer play];
 }
 
 /**
@@ -1100,14 +1099,14 @@
     photo.needBackWithMusic = YES;
     [self.navigationController pushViewController:photo animated:YES];
 }
-/**
- 特殊需求：选择视频后返回该视频的音频
- @param audioPath NSString
- */
+#pragma mark 选择视频后返回的背景音乐
 - (void)backMagicPageWithAudio:(NSString *)audioPath{
     NSLog(@"Magic成功获取剪切后音频>>>>>>>>%@",audioPath);
-    [MBProgressHUD showSucessMessage:@"背景音乐获取成功" inView:self.view];
+//    [MBProgressHUD showSucessMessage:@"背景音乐获取成功" inView:self.view];
     //todo:播放背景音乐
+    self.avPlayer = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:audioPath]];
+    [self.avPlayer play];
+    //todo:连续播放
     
 }
 
