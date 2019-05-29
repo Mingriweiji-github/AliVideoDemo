@@ -545,11 +545,7 @@
         _magicCameraView.bottomHide = YES;
     }
 }
-
-
-#pragma mark - 请求数据
-
-//滤镜
+#pragma mark - 设置滤镜数据
 - (void)setupFilterEffectData
 {
     NSArray *filters = @[@"炽黄",@"粉桃",@"海蓝",@"红润",@"灰白",
@@ -779,8 +775,6 @@
     
     return;
 }
-
-#pragma mark - Getter -
 - (NSMutableArray *)effectFilterItems
 {
     if (!_effectFilterItems) {
@@ -789,39 +783,6 @@
     return _effectFilterItems;
 }
 
-//- (NSMutableArray *)effectGifItems
-//{
-//    if (!_effectGifItems) {
-//        _effectGifItems = [[NSMutableArray alloc] init];
-//    }
-//    return _effectGifItems;
-//}
-
-//- (AliyunDownloadManager *)downloadManager
-//{
-//    if (!_downloadManager) {
-//        _downloadManager = [[AliyunDownloadManager alloc] init];
-//    }
-//    return _downloadManager;
-//}
-//
-//- (AliyunResourceManager *)resourceManager
-//{
-//    if (!_resourceManager) {
-//        _resourceManager = [[AliyunResourceManager alloc] init];
-//    }
-//    return _resourceManager;
-//}
-//
-//- (NSMutableArray *)allPasterInfoArray
-//{
-//
-//    if (!_allPasterInfoArray) {
-//        _allPasterInfoArray = [[NSMutableArray alloc] init];
-//    }
-//    return _allPasterInfoArray;
-//}
-//
 #pragma mark - MagicCameraViewDelegate -
 
 - (void)magicCameraView:(AliyunMagicCameraView *)view dismissButtonTouched:(UIButton *)button{
@@ -1097,7 +1058,7 @@
     photo.needBackWithMusic = YES;
     [self.navigationController pushViewController:photo animated:YES];
 }
-#pragma mark 选择视频后返回的背景音乐
+#pragma mark 背景音乐-选择视频后返回
 - (void)backMagicPageWithAudio:(NSString *)audioPath{
     NSLog(@"Magic成功获取剪切后音频>>>>>>>>%@",audioPath);
 //    [MBProgressHUD showSucessMessage:@"背景音乐获取成功" inView:self.view];
@@ -1141,16 +1102,6 @@
     }
     if ((self.magicCameraView.progressView.videoCount == 0)&&([AliyunIConfig config].recordType == AliyunIRecordActionTypeHold)) {
         [self.magicCameraView.circleBtn setTitle:@"按住拍" forState:UIControlStateNormal];
-    }
-}
-
-/**
- 完成-下一步点击
- */
-- (void)finishButtonClicked {
-    if ([_clipManager partCount]) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [_recorder finishRecording];
     }
 }
 
@@ -1312,7 +1263,14 @@
     [_magicCameraView destroy];
     _magicCameraView.userInteractionEnabled =YES;
 }
-
+#pragma mark 手动跳转编辑页-下一页
+- (void)finishButtonClicked {
+    if ([_clipManager partCount]) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [_recorder finishRecording];
+    }
+}
+#pragma mark 自动跳转编辑页-下一页
 - (void)recorderDidFinishRecording {
     NSLog(@"---------->完成录制回调");
     self.magicCameraView.backButton.enabled = YES;
@@ -1332,13 +1290,11 @@
         self.magicCameraView.countdownButton.enabled = (_clipManager.duration < _clipManager.maxDuration);
         self.magicCameraView.hide = NO;
         
-        //跳转处理
         NSString *outputPath = _recorder.outputPath;
         //        UISaveVideoAtPathToSavedPhotosAlbum(_recorder.outputPath, self, nil, nil);
         if (self.finishBlock) {
             self.finishBlock(outputPath);
         }else{
-            #pragma mark 编辑视频页
             [[AlivcShortVideoRoute shared]registerEditVideoPath:outputPath];
             [[AlivcShortVideoRoute shared]registerEditMediasPath:nil];
             UIViewController *editVC = [[AlivcShortVideoRoute shared]alivcViewControllerWithType:AlivcViewControlEdit];
