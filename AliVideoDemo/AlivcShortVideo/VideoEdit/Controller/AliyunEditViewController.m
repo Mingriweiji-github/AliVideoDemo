@@ -287,6 +287,8 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
 
 @property(nonatomic, assign) CGSize inputOutputSize;
 
+@property (nonatomic, strong)    AVPlayer *musicPlayer;
+
 @end
 
 @implementation AliyunEditViewController {
@@ -298,10 +300,7 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
     AliyunEffectStaticImage *_staticImage;
     AliyunEffectFilter *_processAnimationFilter;
     AliyunTimelineFilterItem *_processAnimationFilterItem;
-    
     TextActionType _tmpActionType; //选择的字幕特效
-    
-    
     AliyunAudioEffectType lastAudioEffectType;//上次设置的音效
 }
 
@@ -314,9 +313,63 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
     [self initSDKAbout];
     [self addWatermarkAndEnd];
 
-    
+    if (self.bgMusic) {
+        self.musicPlayer = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:self.bgMusic]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    }
 }
-
+/**
+ *  背景音乐播放完成通知
+ */
+- (void)playItemDidEnd:(NSNotification *)noti{
+    // 跳到最新的时间点开始播放
+    [self.musicPlayer seekToTime:kCMTimeZero];
+    [self.musicPlayer play];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.isAppear = YES;
+    [[UIApplication sharedApplication]setStatusBarHidden:YES];
+    //为了让导航条播放时长匹配，必须在这里设置时长
+    self.currentTimelineView.actualDuration = [self.player getStreamDuration];
+    if (_tryResumeWhenBack) {
+        if (!_prePlaying) {
+            [self resume];
+        }
+    }
+    //从发布合成界面返回重新开始编辑并播放
+    [self.editor startEdit];
+    [self play];
+    [self resourceDeleteAction];
+    
+    if (self.musicPlayer) {
+        [self.musicPlayer play];
+    }
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.isAppear = NO;
+    [self pause];
+    _tryResumeWhenBack = YES;
+    self.filter = nil;
+    if ([self.navigationController
+         respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    };
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    //停止编辑
+    [self.editor stopEdit];
+    //停止音乐
+    if (self.musicPlayer) {
+        [self.musicPlayer pause];
+    }
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+}
 - (void)dealloc {
     [self.editor stopEdit];
     [self removeNotifications];
@@ -514,46 +567,6 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
     timeLineView.actualDuration = [self.player getStreamDuration];
     return timeLineView;
 }
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.isAppear = YES;
-    [[UIApplication sharedApplication]setStatusBarHidden:YES];
-    //为了让导航条播放时长匹配，必须在这里设置时长
-    self.currentTimelineView.actualDuration = [self.player getStreamDuration];
-    if (_tryResumeWhenBack) {
-        if (!_prePlaying) {
-            [self resume];
-        }
-    }
-    //从发布合成界面返回重新开始编辑并播放
-    [self.editor startEdit];
-    [self play];
-    [self resourceDeleteAction];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.isAppear = NO;
-    [self pause];
-    _tryResumeWhenBack = YES;
-    self.filter = nil;
-    if ([self.navigationController
-         respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    };
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    //停止编辑
-    [self.editor stopEdit];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    } 
-}
-
 - (BOOL)shouldAutorotate {
     return NO;
 }

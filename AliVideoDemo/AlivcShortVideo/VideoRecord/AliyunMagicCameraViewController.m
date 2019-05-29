@@ -48,6 +48,7 @@
 #import "AliyunEffectFilterView.h"
 #import "UIView+AlivcHelper.h"
 #import "AliyunPhotoViewController.h"
+#import "AliyunEditViewController.h"
 @interface AliyunMagicCameraViewController () <AliyunMusicPickViewControllerDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,AliyunIRecorderDelegate,AliyunEffectFilter2ViewDelegate,AliyunPhotoViewControllerDelegate>
 
 /**
@@ -175,6 +176,8 @@
 @property(nonatomic, strong) AliyunEffectFilterView *filterView;
 
 @property (nonatomic, strong)AVPlayer *avPlayer;//音频播放
+@property (nonatomic, copy)NSString * selectBgMusic;//自己自作的背景音乐
+@property (nonatomic, copy)NSString * bgMusic;//音乐列表
 
 @end
 
@@ -295,15 +298,6 @@
     [self addGesture];
     [self addNotification];
     [self setupFilterEffectData];
-//    [self fetchData];
-    
-    //网络状态判定
-//    _reachability = [AliyunReachability reachabilityForInternetConnection];
-//    [_reachability startNotifier];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(reachabilityChanged)
-//                                                 name:AliyunPVReachabilityChangedNotification
-//                                               object:nil];
     
     [self.dbHelper openResourceDBSuccess:nil failure:nil];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -322,7 +316,6 @@
 }
 /**
  *  背景音乐播放完成通知
-*  @param noti 通知对象
  */
 - (void)playItemDidEnd:(NSNotification *)noti{
     // 跳到最新的时间点开始播放
@@ -349,8 +342,8 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self startRetainCameraRotate];
     });
-    
-    if (self.avPlayer) {
+    if (self.selectBgMusic) {
+        self.avPlayer = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:self.selectBgMusic]];
         [self.avPlayer seekToTime:kCMTimeZero];
         [self.avPlayer play];
     }
@@ -358,6 +351,11 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    if (self.avPlayer) {
+        self.avPlayer = nil;
+        [self.avPlayer pause];
+    }
+    
     if (self.needStopPreview) {
         [self stopPreview];
     }
@@ -366,9 +364,6 @@
     //启用侧滑手势
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     [self.motionManager stopDeviceMotionUpdates];
-    if (self.avPlayer) {
-        [self.avPlayer pause];
-    }
 }
 - (void)dealloc
 {
@@ -545,8 +540,8 @@
  */
 - (void)addNotification
 {
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resourceDelete:) name:AliyunEffectResourceDeleteNotification object:nil];
@@ -977,17 +972,15 @@
     photo.needBackWithMusic = YES;
     [self.navigationController pushViewController:photo animated:YES];
 }
-#pragma mark 背景音乐-选择视频后返回
+#pragma mark 自己制作的背景音乐
 - (void)backMagicPageWithAudio:(NSString *)audioPath{
     NSLog(@"Magic成功获取剪切后音频>>>>>>>>%@",audioPath);
 //    [MBProgressHUD showSucessMessage:@"背景音乐获取成功" inView:self.view];
+    self.selectBgMusic = audioPath;
     //todo:播放背景音乐
     self.avPlayer = [[AVPlayer alloc] initWithURL:[NSURL fileURLWithPath:audioPath]];
     [self.avPlayer play];
-    //todo:连续播放
-    
 }
-
 -(AliyunMediaConfig *)mediaConfig{
     
     if (!_mediaConfig) {//默认配置
@@ -1216,7 +1209,12 @@
         }else{
             [[AlivcShortVideoRoute shared]registerEditVideoPath:outputPath];
             [[AlivcShortVideoRoute shared]registerEditMediasPath:nil];
-            UIViewController *editVC = [[AlivcShortVideoRoute shared]alivcViewControllerWithType:AlivcViewControlEdit];
+            AliyunEditViewController *editVC = (AliyunEditViewController *)[[AlivcShortVideoRoute shared]alivcViewControllerWithType:AlivcViewControlEdit];
+            if (self.selectBgMusic) {//有背景音乐
+                editVC.bgMusic = self.selectBgMusic;
+            }else if (self.bgMusic){//音乐列表
+                editVC.bgMusic = self.bgMusic;
+            }
             [self.navigationController pushViewController:editVC animated:YES];
         }
         

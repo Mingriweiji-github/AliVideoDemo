@@ -34,6 +34,11 @@
 
 
 /**
+ 背景音乐
+ */
+@property (nonatomic, strong)NSString *bgMusic;
+
+/**
  完成的回调
  */
 @property (nonatomic, copy) AlivcEditFinishBlock finishBlock;
