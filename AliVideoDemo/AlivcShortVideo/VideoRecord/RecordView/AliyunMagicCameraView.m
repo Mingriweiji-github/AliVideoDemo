@@ -140,7 +140,7 @@
     [self.topView addSubview:self.cameraIdButton];
     [self.topView addSubview:self.flashButton];
     self.flashButton.enabled = NO;
-    [self.topView addSubview:self.countdownButton];
+//    [self.topView addSubview:self.countdownButton];
     [self.topView addSubview:self.finishButton];
     [self addSubview:self.musicButton];
     [self addSubview:self.filterButton];
