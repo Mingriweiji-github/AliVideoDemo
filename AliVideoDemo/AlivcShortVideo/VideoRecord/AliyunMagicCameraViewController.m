@@ -654,8 +654,6 @@
 //    return [self.resourceManager loadLocalFacePasters];
 //}
 
-#pragma mark - 设备旋转
-
 // 支持设备自动旋转
 - (BOOL)shouldAutorotate
 {
@@ -1146,6 +1144,9 @@
     }
 }
 
+/**
+ 完成-下一步点击
+ */
 - (void)finishButtonClicked {
     if ([_clipManager partCount]) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -1212,32 +1213,6 @@
     [self.recorder setRate:rate];
 }
 
-#pragma mark - AliyunMusicPickViewControllerDelegate
-
--(void)didSelectMusic:(AliyunMusicPickModel *)music tab:(NSInteger)tab{
-    self.music = music;
-    self.tab = tab;
-    
-    if ([music.name isEqualToString:@"无音乐"] || !music.path || ![[NSFileManager defaultManager] fileExistsAtPath:music.path]) {
-        //清除音乐效果
-        [_recorder applyMusic:nil];
-        self.tab =0;
-        [self.magicCameraView setMusicButtonImage:nil];
-    }else{
-        AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:music.path];
-        effectMusic.startTime = music.startTime;
-        effectMusic.duration = music.duration;
-        [_recorder applyMusic:effectMusic];
-        NSLog(@"%@",effectMusic.path);
-        NSLog(@"----------->:有path，有文件");
-//        [self.magicCameraView setMusicButtonImage:music.image];
-    }
-    
-}
-
--(void)didCancelPick {
-}
-
 #pragma mark - AliyunIRecorderDelegate -
 
 - (void)recorderDeviceAuthorization:(AliyunIRecorderDeviceAuthor)status {
@@ -1300,20 +1275,6 @@
     
     return pxbuffer;
 }
-//// 集成faceunity
-//#if SDK_VERSION == SDK_VERSION_CUSTOM
-//
-//- (CVPixelBufferRef)customRenderedPixelBufferWithRawSampleBuffer:(CMSampleBufferRef)sampleBuffer {
-//    //    NSLog(@"高级美颜：faceunity调用,磨皮:%f,,美白:%f,红润:%f,大眼:%f,瘦脸:%f",self.blurValue,self.beautyWhiteValue,self.buddyValue,self.bigEyeValue,self.slimFaceValue);
-//    if((self.beautyWhiteValue == 0)&&(self.blurValue == 0)&&(self.bigEyeValue == 0)&&(self.slimFaceValue == 0)&&(self.buddyValue == 0) ){
-//        return CMSampleBufferGetImageBuffer(sampleBuffer);
-//    }
-//    CVPixelBufferRef buf = [[AlivcShortVideoFaceUnityManager shareManager] RenderedPixelBufferWithRawSampleBuffer:sampleBuffer beautyWhiteValue:self.beautyWhiteValue blurValue:self.blurValue bigEyeValue:self.bigEyeValue slimFaceValue:self.slimFaceValue buddyValue:self.buddyValue];
-//
-//    return buf;
-//}
-//
-//#endif
 - (void)recorderDidStopRecording {
     NSLog(@"---------->暂停录制回调");
     self.magicCameraView.backButton.enabled = YES;
@@ -1433,6 +1394,32 @@
     }
     return _filterView;
 }
+#pragma mark - AliyunMusicPickViewControllerDelegate
+-(void)didSelectMusic:(AliyunMusicPickModel *)music tab:(NSInteger)tab{
+    self.music = music;
+    self.tab = tab;
+    
+    if ([music.name isEqualToString:@"无音乐"] || !music.path || ![[NSFileManager defaultManager] fileExistsAtPath:music.path]) {
+        //清除音乐效果
+        [_recorder applyMusic:nil];
+        self.tab =0;
+        [self.magicCameraView setMusicButtonImage:nil];
+    }else{
+        AliyunEffectMusic *effectMusic = [[AliyunEffectMusic alloc] initWithFile:music.path];
+        effectMusic.startTime = music.startTime;
+        effectMusic.duration = music.duration;
+        [_recorder applyMusic:effectMusic];
+        NSLog(@"%@",effectMusic.path);
+        NSLog(@"----------->:有path，有文件");
+        //        [self.magicCameraView setMusicButtonImage:music.image];
+    }
+    
+}
+
+-(void)didCancelPick {
+}
+
+
 #pragma mark 裁剪完成 AliyunPhotoViewControllerDelegate
 - (void)backBtnClick:(UIViewController *)vc{
     [self.navigationController popViewControllerAnimated:YES];
