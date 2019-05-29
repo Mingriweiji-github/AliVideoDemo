@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/Common/Root/AliyunRootViewController.m"
-            timestampString = "580376366.581055"
+            timestampString = "580810119.719061"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "156"
@@ -131,22 +131,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/RecordView/AliyunRecordBeautyView.m"
-            timestampString = "580655314.280701"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407"
-            landmarkName = "-settingsViewController:didChangeUIStyle:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/Common/ConfigureParam/AliyunConfigureViewController.m"
             timestampString = "580720185.42439"
             startingColumnNumber = "9223372036854775807"
@@ -164,7 +148,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/Common/Root/AliyunRootViewController.m"
-            timestampString = "580720188.588143"
+            timestampString = "580810119.719974"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "308"
@@ -212,7 +196,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideoCommonFile/Crop/AliyunPhotoViewController.m"
-            timestampString = "580738482.8254811"
+            timestampString = "580810119.720349"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "178"
@@ -228,7 +212,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/Common/Composition/View/AliyunCompositionPickView.m"
-            timestampString = "580738482.8257591"
+            timestampString = "580810690.709699"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "156"
@@ -244,7 +228,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/Common/Composition/AliyunCompositionViewController.m"
-            timestampString = "580738482.825941"
+            timestampString = "580810690.709996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "482"
@@ -260,7 +244,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/Common/Composition/AliyunCompositionViewController.m"
-            timestampString = "580738482.826117"
+            timestampString = "580810690.710186"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "504"
@@ -276,7 +260,7 @@
                   moduleName = "AliVideoDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/dev/AliVideoDemo/AliVideoDemo/AlivcShortVideo/Common/Composition/AliyunCompositionViewController.m"
-                  timestampString = "580738483.083872"
+                  timestampString = "580810690.962708"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "504"
@@ -291,7 +275,7 @@
                   moduleName = "AliVideoDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/dev/AliVideoDemo/AliVideoDemo/AlivcShortVideo/Common/Composition/AliyunCompositionViewController.m"
-                  timestampString = "580738483.085433"
+                  timestampString = "580810690.964323"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "505"
@@ -308,7 +292,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/AliyunMagicCameraViewController.m"
-            timestampString = "580738482.826169"
+            timestampString = "580810690.710245"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1425"
@@ -324,7 +308,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/Common/Composition/AliyunCompositionViewController.m"
-            timestampString = "580738482.826341"
+            timestampString = "580810690.710815"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
@@ -346,6 +330,70 @@
             startingLineNumber = "216"
             endingLineNumber = "216"
             landmarkName = "-exporterDidEnd:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AliVideoDemo/AlivcShortVideoCommonFile/AliyunVideoBase/AliyunVideoBase.m"
+            timestampString = "580809214.379486"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "-recodBtnClick:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AliVideoDemo/AlivcShortVideo/Common/ConfigureParam/AliyunConfigureViewController.m"
+            timestampString = "580809221.9172159"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
+            landmarkName = "-recodBtnClick:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AliVideoDemo/AlivcShortVideo/Common/Root/AliyunRootViewController.m"
+            timestampString = "580810119.721469"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "-recodBtnClick:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AliVideoDemo/AlivcShortVideo/VideoRecord/AliyunMagicCameraViewController.m"
+            timestampString = "580810690.7109849"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1043"
+            endingLineNumber = "1043"
+            landmarkName = "-musicButtonClicked"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

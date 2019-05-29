@@ -794,9 +794,15 @@
 		1802139A2295759400FADEFA /* AlivcShortVideo */ = {
 			isa = PBXGroup;
 			children = (
+				18E20FD8229BE90A0086C3A5 /* AVC_ShortVideo_Config.h */,
+				18E20FCB229BE90A0086C3A5 /* AliyunVideoBase */,
 				188C8FA622956D8C00BEBD72 /* VideoRecord */,
 				18021464229576E100FADEFA /* VideoEdit */,
 				180214F2229576E100FADEFA /* VideoPublish */,
+				18E20FD9229BE90A0086C3A5 /* Crop */,
+				18E20FE5229BE90A0086C3A5 /* Mediator */,
+				18E20FE8229BE90A0086C3A5 /* Tools */,
+				18E2100A229BE90A0086C3A5 /* Vendor */,
 				1802139B229576D700FADEFA /* Common */,
 			);
 			path = AlivcShortVideo;
@@ -1608,8 +1614,8 @@
 		188C8FA622956D8C00BEBD72 /* VideoRecord */ = {
 			isa = PBXGroup;
 			children = (
-				188C8D6F22954A8F00BEBD72 /* RecordView */,
 				188C8FA722956DA700BEBD72 /* RecordController */,
+				188C8D6F22954A8F00BEBD72 /* RecordView */,
 			);
 			path = VideoRecord;
 			sourceTree = "<group>";
@@ -1729,12 +1735,6 @@
 		18E20FCA229BE90A0086C3A5 /* AlivcShortVideoCommonFile */ = {
 			isa = PBXGroup;
 			children = (
-				18E20FCB229BE90A0086C3A5 /* AliyunVideoBase */,
-				18E20FD8229BE90A0086C3A5 /* AVC_ShortVideo_Config.h */,
-				18E20FD9229BE90A0086C3A5 /* Crop */,
-				18E20FE5229BE90A0086C3A5 /* Mediator */,
-				18E20FE8229BE90A0086C3A5 /* Tools */,
-				18E2100A229BE90A0086C3A5 /* Vendor */,
 			);
 			path = AlivcShortVideoCommonFile;
 			sourceTree = "<group>";
@@ -1761,16 +1761,16 @@
 		18E20FD9229BE90A0086C3A5 /* Crop */ = {
 			isa = PBXGroup;
 			children = (
+				18E20FE2229BE90A0086C3A5 /* AliyunPhotoViewController.h */,
+				18E20FE3229BE90A0086C3A5 /* AliyunPhotoViewController.m */,
+				18E20FDE229BE90A0086C3A5 /* AliyunCropViewController.h */,
+				18E20FDF229BE90A0086C3A5 /* AliyunCropViewController.m */,
 				18E20FDA229BE90A0086C3A5 /* AliyunCropThumbnailView.h */,
 				18E20FDB229BE90A0086C3A5 /* AliyunCropThumbnailView.m */,
 				18E20FDC229BE90A0086C3A5 /* AliyunCropViewBottomView.h */,
 				18E20FDD229BE90A0086C3A5 /* AliyunCropViewBottomView.m */,
-				18E20FDE229BE90A0086C3A5 /* AliyunCropViewController.h */,
-				18E20FDF229BE90A0086C3A5 /* AliyunCropViewController.m */,
 				18E20FE0229BE90A0086C3A5 /* AliyunCycleProgressView.h */,
 				18E20FE1229BE90A0086C3A5 /* AliyunCycleProgressView.m */,
-				18E20FE2229BE90A0086C3A5 /* AliyunPhotoViewController.h */,
-				18E20FE3229BE90A0086C3A5 /* AliyunPhotoViewController.m */,
 				18E20FE4229BE90A0086C3A5 /* VODUploadModel.h */,
 			);
 			path = Crop;

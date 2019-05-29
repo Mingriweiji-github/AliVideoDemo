@@ -524,7 +524,7 @@
         [self stopPreview];
         _suspend = YES;
         if ([AliyunIConfig config].recordType == AliyunIRecordActionTypeClick) {
-            [self.magicCameraView recordButtonTouchDown];
+//            [self.magicCameraView recordButtonTouchDown];
             [self.magicCameraView recordButtonTouchUp];
         }else{
             [self.magicCameraView recordButtonTouchUp];
