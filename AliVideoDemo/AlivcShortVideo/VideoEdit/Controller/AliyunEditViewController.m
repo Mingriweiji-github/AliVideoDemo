@@ -963,10 +963,7 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
     }
     return nil;
 }
-
-/**
- 发布
- */
+#pragma mark 下一步：发布
 - (void)publish {
     [self forceFinishLastEditPasterView];
     if (self.isExporting){
