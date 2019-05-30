@@ -8,9 +8,9 @@
 
 #import "ViewController.h"
 #import "AliyunMediaConfig.h"
-#import "AlivcShortVideoRoute.h"
 #import "AlivcUIConfig.h"
 #import "AliyunMagicCameraViewController.h"
+#import "AlivcShortVideoRoute.h"
 @interface ViewController ()
 //@property (nonatomic, strong) AliyunMediaConfig *quVideo;// 录制参数
 
