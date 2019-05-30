@@ -63,13 +63,13 @@ UIAlertViewDelegate>
 - (void)tryExport {
     if (!_finished) {
         // 片尾水印
-        if (_config.hasEnd) {
-            NSString *tailWatermarkPath = [[NSBundle mainBundle] pathForResource:@"tail" ofType:@"png"];
-            AliyunEffectImage *tailWatermark = [[AliyunEffectImage alloc] initWithFile:tailWatermarkPath];
-            tailWatermark.frame = CGRectMake(self.outputSize.width / 2 - 42,self.outputSize.height / 2 - 30, 84, 60);
-            tailWatermark.endTime = 2;
-            [[AliyunPublishService service] setTailWaterMark:tailWatermark];
-        }
+//        if (_config.hasEnd) {
+//            NSString *tailWatermarkPath = [[NSBundle mainBundle] pathForResource:@"tail" ofType:@"png"];
+//            AliyunEffectImage *tailWatermark = [[AliyunEffectImage alloc] initWithFile:tailWatermarkPath];
+//            tailWatermark.frame = CGRectMake(self.outputSize.width / 2 - 42,self.outputSize.height / 2 - 30, 84, 60);
+//            tailWatermark.endTime = 2;
+//            [[AliyunPublishService service] setTailWaterMark:tailWatermark];
+//        }
         [AliyunPublishService service].exportCallback = self;
         NSLog(@"合成参数:%@", _config.outputPath);
         BOOL isSuccess =
