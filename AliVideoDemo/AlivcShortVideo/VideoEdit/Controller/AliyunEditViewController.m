@@ -77,7 +77,7 @@
 #import "AliAssetImageGenerator.h"
 #import "AlivcCoverImageSelectedView.h"
 #import "AlivcSpecialEffectView.h"
-#import "AliyunCompressManager.h"
+//#import "AliyunCompressManager.h"
 #import "AliyunCustomFilter.h"
 #import "AliyunEffectFilterView.h"
 //#import "AliyunEffectMVView.h"
@@ -239,7 +239,7 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
 // 倒播相关
 @property(nonatomic, strong) AliyunNativeParser *parser;
 @property(nonatomic, assign) BOOL invertAvailable; // 视频是否满足倒播条件
-@property(nonatomic, strong) AliyunCompressManager *compressManager;
+//@property(nonatomic, strong) AliyunCompressManager *compressManager;
 //动效滤镜
 @property(nonatomic, strong) NSMutableArray *animationFilters;
 
@@ -2648,76 +2648,76 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
     [_currentTimelineView addTimelineTimeFilterItem:item];
 }
 //倒放
-- (void)didSelectInvert:(void (^)(BOOL))success {
-    
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        AliyunClip *clip = self.clipConstructor.mediaClips[0];
-        NSString *inputPath = clip.src;
-        //存在B帧要先转码，否则倒播会出现卡顿现象
-        AliyunNativeParser *nativeParser =[[AliyunNativeParser alloc]initWithPath:inputPath];
-        AVURLAsset *asset = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:inputPath]];
-        CGFloat resolution = [asset avAssetNaturalSize].width * [asset avAssetNaturalSize].height;
-        CGFloat max = [self maxVideoSize].width * [self maxVideoSize].height;
-        NSLog(@"--------->frameRate:%f  GopSize:%zd",asset.frameRate,nativeParser.getGopSize);
-        //分辨率过大              //fps过大                    //Gop过大
-        if (resolution > max || asset.frameRate > 35 || nativeParser.getGopSize >35) {
-            [self pause];
-            AVURLAsset *asset = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:inputPath]];
-            NSString *root = [AliyunPathManager compositionRootDir];
-            NSString *outputPath = [[root stringByAppendingPathComponent:[AliyunPathManager randomString]] stringByAppendingPathExtension:@"mp4"];
-            AliyunMediaConfig *config = [AliyunMediaConfig invertConfig];
-            __weak typeof(self) weakself = self;
-            self.compressManager =[[AliyunCompressManager alloc] initWithMediaConfig:config];
-            [self.compressManager compressWithSourcePath:inputPath outputPath:outputPath outputSize:[asset aliyunNaturalSize] success:^{
-                [self didSelectNone];
-                weakself.invertAvailable = YES;
-                [[MBProgressHUD HUDForView:self.view] hideAnimated:YES];
-                [weakself.editor stopEdit];
-                clip.src = outputPath;
-                [weakself.clipConstructor updateMediaClip:clip atIndex:0];
-                [weakself.editor startEdit];
-                [weakself.player play]; //这里必须调用self.player的play
-                //要不原始视频流时间和当前播放时间会反
-                [weakself updateUIAndDataWhenPlayStatusChanged];
-                [weakself invert];
-                if (success) {
-                    success(YES);
-                }
-            } failure:^(int errorCode) {
-                [[MBProgressHUD HUDForView:weakself.view] hideAnimated:YES];
-                [weakself play];
-                if (success) {
-                    success(NO);
-                }
-            }];
-        } else {
-            [[MBProgressHUD HUDForView:self.view] hideAnimated:YES];
-            [self didSelectNone];
-            [self invert];
-            if (success) {
-                success(YES);
-            }
-        }
-}
+//- (void)didSelectInvert:(void (^)(BOOL))success {
+//
+//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        AliyunClip *clip = self.clipConstructor.mediaClips[0];
+//        NSString *inputPath = clip.src;
+//        //存在B帧要先转码，否则倒播会出现卡顿现象
+//        AliyunNativeParser *nativeParser =[[AliyunNativeParser alloc]initWithPath:inputPath];
+//        AVURLAsset *asset = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:inputPath]];
+//        CGFloat resolution = [asset avAssetNaturalSize].width * [asset avAssetNaturalSize].height;
+//        CGFloat max = [self maxVideoSize].width * [self maxVideoSize].height;
+//        NSLog(@"--------->frameRate:%f  GopSize:%zd",asset.frameRate,nativeParser.getGopSize);
+//        //分辨率过大              //fps过大                    //Gop过大
+//        if (resolution > max || asset.frameRate > 35 || nativeParser.getGopSize >35) {
+//            [self pause];
+//            AVURLAsset *asset = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:inputPath]];
+//            NSString *root = [AliyunPathManager compositionRootDir];
+//            NSString *outputPath = [[root stringByAppendingPathComponent:[AliyunPathManager randomString]] stringByAppendingPathExtension:@"mp4"];
+//            AliyunMediaConfig *config = [AliyunMediaConfig invertConfig];
+//            __weak typeof(self) weakself = self;
+//            self.compressManager =[[AliyunCompressManager alloc] initWithMediaConfig:config];
+//            [self.compressManager compressWithSourcePath:inputPath outputPath:outputPath outputSize:[asset aliyunNaturalSize] success:^{
+//                [self didSelectNone];
+//                weakself.invertAvailable = YES;
+//                [[MBProgressHUD HUDForView:self.view] hideAnimated:YES];
+//                [weakself.editor stopEdit];
+//                clip.src = outputPath;
+//                [weakself.clipConstructor updateMediaClip:clip atIndex:0];
+//                [weakself.editor startEdit];
+//                [weakself.player play]; //这里必须调用self.player的play
+//                //要不原始视频流时间和当前播放时间会反
+//                [weakself updateUIAndDataWhenPlayStatusChanged];
+//                [weakself invert];
+//                if (success) {
+//                    success(YES);
+//                }
+//            } failure:^(int errorCode) {
+//                [[MBProgressHUD HUDForView:weakself.view] hideAnimated:YES];
+//                [weakself play];
+//                if (success) {
+//                    success(NO);
+//                }
+//            }];
+//        } else {
+//            [[MBProgressHUD HUDForView:self.view] hideAnimated:YES];
+//            [self didSelectNone];
+//            [self invert];
+//            if (success) {
+//                success(YES);
+//            }
+//        }
+//}
 //倒播支持最大分辨率设置
-- (CGSize)maxVideoSize {
-    CGSize size = CGSizeMake(1080, 1920);
-    
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    
-    NSString *deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-    
-    if ([deviceString isEqualToString:@"iPhone4,1"]||[deviceString isEqualToString:@"iPhone3,1"]){
-        size = CGSizeMake(720, 960);
-    }
-    if ([deviceString isEqualToString:@"iPhone5,2"]){
-        size = CGSizeMake(1080, 1080);
-        
-    }
-    return size;
-    
-}
+//- (CGSize)maxVideoSize {
+//    CGSize size = CGSizeMake(1080, 1920);
+//    
+//    struct utsname systemInfo;
+//    uname(&systemInfo);
+//    
+//    NSString *deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+//    
+//    if ([deviceString isEqualToString:@"iPhone4,1"]||[deviceString isEqualToString:@"iPhone3,1"]){
+//        size = CGSizeMake(720, 960);
+//    }
+//    if ([deviceString isEqualToString:@"iPhone5,2"]){
+//        size = CGSizeMake(1080, 1080);
+//        
+//    }
+//    return size;
+//    
+//}
 
 
 - (void)invert {

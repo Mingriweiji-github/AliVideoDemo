@@ -9,12 +9,6 @@
 /* Begin PBXBuildFile section */
 		18021427229576D700FADEFA /* AliAssetImageGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1802139E229576D700FADEFA /* AliAssetImageGenerator.m */; };
 		18021428229576D700FADEFA /* AlivcShortVideoRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 180213A0229576D700FADEFA /* AlivcShortVideoRoute.m */; };
-		18021429229576D700FADEFA /* AliyunCompositionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180213A3229576D700FADEFA /* AliyunCompositionViewController.m */; };
-		1802142A229576D700FADEFA /* AliyunCompressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 180213A6229576D700FADEFA /* AliyunCompressManager.m */; };
-		1802142B229576D700FADEFA /* AliyunCompositionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 180213A9229576D700FADEFA /* AliyunCompositionInfo.m */; };
-		1802142C229576D700FADEFA /* AliyunCompositionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180213AC229576D700FADEFA /* AliyunCompositionCell.m */; };
-		1802142D229576D700FADEFA /* AliyunCompositionPickCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180213AE229576D700FADEFA /* AliyunCompositionPickCell.m */; };
-		1802142E229576D700FADEFA /* AliyunCompositionPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180213B0229576D700FADEFA /* AliyunCompositionPickView.m */; };
 		1802142F229576D700FADEFA /* AliyunConfigureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180213B3229576D700FADEFA /* AliyunConfigureViewController.m */; };
 		18021431229576D700FADEFA /* AliyunRecordParamTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180213B7229576D700FADEFA /* AliyunRecordParamTableViewCell.m */; };
 		18021432229576D700FADEFA /* AliyunCustomFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 180213BA229576D700FADEFA /* AliyunCustomFilter.m */; };
@@ -278,18 +272,6 @@
 		1802139E229576D700FADEFA /* AliAssetImageGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliAssetImageGenerator.m; sourceTree = "<group>"; };
 		1802139F229576D700FADEFA /* AlivcShortVideoRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlivcShortVideoRoute.h; sourceTree = "<group>"; };
 		180213A0229576D700FADEFA /* AlivcShortVideoRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlivcShortVideoRoute.m; sourceTree = "<group>"; };
-		180213A2229576D700FADEFA /* AliyunCompositionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliyunCompositionViewController.h; sourceTree = "<group>"; };
-		180213A3229576D700FADEFA /* AliyunCompositionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliyunCompositionViewController.m; sourceTree = "<group>"; };
-		180213A5229576D700FADEFA /* AliyunCompressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliyunCompressManager.h; sourceTree = "<group>"; };
-		180213A6229576D700FADEFA /* AliyunCompressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliyunCompressManager.m; sourceTree = "<group>"; };
-		180213A8229576D700FADEFA /* AliyunCompositionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliyunCompositionInfo.h; sourceTree = "<group>"; };
-		180213A9229576D700FADEFA /* AliyunCompositionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliyunCompositionInfo.m; sourceTree = "<group>"; };
-		180213AB229576D700FADEFA /* AliyunCompositionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliyunCompositionCell.h; sourceTree = "<group>"; };
-		180213AC229576D700FADEFA /* AliyunCompositionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliyunCompositionCell.m; sourceTree = "<group>"; };
-		180213AD229576D700FADEFA /* AliyunCompositionPickCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliyunCompositionPickCell.h; sourceTree = "<group>"; };
-		180213AE229576D700FADEFA /* AliyunCompositionPickCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliyunCompositionPickCell.m; sourceTree = "<group>"; };
-		180213AF229576D700FADEFA /* AliyunCompositionPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliyunCompositionPickView.h; sourceTree = "<group>"; };
-		180213B0229576D700FADEFA /* AliyunCompositionPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliyunCompositionPickView.m; sourceTree = "<group>"; };
 		180213B2229576D700FADEFA /* AliyunConfigureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliyunConfigureViewController.h; sourceTree = "<group>"; };
 		180213B3229576D700FADEFA /* AliyunConfigureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliyunConfigureViewController.m; sourceTree = "<group>"; };
 		180213B4229576D700FADEFA /* AliyunConfigureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliyunConfigureViewController.xib; sourceTree = "<group>"; };
@@ -819,7 +801,6 @@
 				1802139C229576D700FADEFA /* AliAssetImageGenerator */,
 				1802139F229576D700FADEFA /* AlivcShortVideoRoute.h */,
 				180213A0229576D700FADEFA /* AlivcShortVideoRoute.m */,
-				180213A1229576D700FADEFA /* Composition */,
 				180213B1229576D700FADEFA /* ConfigureParam */,
 				180213B5229576D700FADEFA /* CustomView */,
 				180213B8229576D700FADEFA /* Model */,
@@ -839,49 +820,6 @@
 				1802139E229576D700FADEFA /* AliAssetImageGenerator.m */,
 			);
 			path = AliAssetImageGenerator;
-			sourceTree = "<group>";
-		};
-		180213A1229576D700FADEFA /* Composition */ = {
-			isa = PBXGroup;
-			children = (
-				180213A2229576D700FADEFA /* AliyunCompositionViewController.h */,
-				180213A3229576D700FADEFA /* AliyunCompositionViewController.m */,
-				180213A4229576D700FADEFA /* Compress */,
-				180213A7229576D700FADEFA /* Model */,
-				180213AA229576D700FADEFA /* View */,
-			);
-			path = Composition;
-			sourceTree = "<group>";
-		};
-		180213A4229576D700FADEFA /* Compress */ = {
-			isa = PBXGroup;
-			children = (
-				180213A5229576D700FADEFA /* AliyunCompressManager.h */,
-				180213A6229576D700FADEFA /* AliyunCompressManager.m */,
-			);
-			path = Compress;
-			sourceTree = "<group>";
-		};
-		180213A7229576D700FADEFA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				180213A8229576D700FADEFA /* AliyunCompositionInfo.h */,
-				180213A9229576D700FADEFA /* AliyunCompositionInfo.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		180213AA229576D700FADEFA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				180213AB229576D700FADEFA /* AliyunCompositionCell.h */,
-				180213AC229576D700FADEFA /* AliyunCompositionCell.m */,
-				180213AD229576D700FADEFA /* AliyunCompositionPickCell.h */,
-				180213AE229576D700FADEFA /* AliyunCompositionPickCell.m */,
-				180213AF229576D700FADEFA /* AliyunCompositionPickView.h */,
-				180213B0229576D700FADEFA /* AliyunCompositionPickView.m */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		180213B1229576D700FADEFA /* ConfigureParam */ = {
@@ -1466,7 +1404,6 @@
 			children = (
 				188C8BAB2295293800BEBD72 /* AppDelegate.h */,
 				188C8BAC2295293800BEBD72 /* AppDelegate.m */,
-				18E20FCA229BE90A0086C3A5 /* AlivcShortVideoCommonFile */,
 				18B7152522978415006C62AB /* FilterResource.bundle */,
 				18B7190A22978416006C62AB /* QPSDK.bundle */,
 				18B7152622978415006C62AB /* ShortVideoResource */,
@@ -1734,13 +1671,6 @@
 				18E20FA2229BE7200086C3A5 /* AlivcPushBeautyParams.m */,
 			);
 			path = AlivcBeaitufySettingsPanel;
-			sourceTree = "<group>";
-		};
-		18E20FCA229BE90A0086C3A5 /* AlivcShortVideoCommonFile */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AlivcShortVideoCommonFile;
 			sourceTree = "<group>";
 		};
 		18E20FCB229BE90A0086C3A5 /* AliyunVideoBase */ = {
@@ -2145,7 +2075,6 @@
 				"${PODS_ROOT}/AliyunVideoSDKPro/frameworks/AliyunVideoSDKPro.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/JSONModel/JSONModel.framework",
-				"${BUILT_PRODUCTS_DIR}/LXReorderableCollectionViewFlowLayout/LXReorderableCollectionViewFlowLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${PODS_ROOT}/QuCore-ThirdParty/frameworks/alivcffmpeg.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -2160,7 +2089,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AliyunVideoSDKPro.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSONModel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LXReorderableCollectionViewFlowLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/alivcffmpeg.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -2208,7 +2136,6 @@
 				1802154D229576E100FADEFA /* AlivcShortVideoPublishManager.m in Sources */,
 				18E20FB8229BE7200086C3A5 /* AlivcLiveBeautifySettingsViewController.m in Sources */,
 				18021549229576E100FADEFA /* AlivcExportViewController.m in Sources */,
-				1802142A229576D700FADEFA /* AliyunCompressManager.m in Sources */,
 				188C8BB02295293800BEBD72 /* ViewController.m in Sources */,
 				188C8D8722954AFD00BEBD72 /* AlivcRecordFliterView.m in Sources */,
 				1802145F229576D700FADEFA /* AliyunEffectMoreView.m in Sources */,
@@ -2249,7 +2176,6 @@
 				18021535229576E100FADEFA /* AlivcEditIconButton.m in Sources */,
 				18021443229576D700FADEFA /* AliyunTimelineFilterItem.m in Sources */,
 				18021554229576E100FADEFA /* AliyunPublishTopView.m in Sources */,
-				1802142E229576D700FADEFA /* AliyunCompositionPickView.m in Sources */,
 				18E2101C229BE90A0086C3A5 /* AliyunVideoCropParam.m in Sources */,
 				1802143D229576D700FADEFA /* AliyunMusicLineView.m in Sources */,
 				18B70DB522968FD3006C62AB /* ViewController+MASAdditions.m in Sources */,
@@ -2327,7 +2253,6 @@
 				1802152F229576E100FADEFA /* AliyunEditButtonsView.m in Sources */,
 				188C8BBB2295293A00BEBD72 /* main.m in Sources */,
 				188C8D7522954ACD00BEBD72 /* MagicCameraPressCircleView.m in Sources */,
-				18021429229576D700FADEFA /* AliyunCompositionViewController.m in Sources */,
 				1802151E229576E100FADEFA /* AliyunPasterTextAttributedManager.m in Sources */,
 				18021515229576E100FADEFA /* AlivcEditItemManager.m in Sources */,
 				18021539229576E100FADEFA /* AlivcAudioEffectCell.m in Sources */,
@@ -2345,13 +2270,10 @@
 				18E21051229BEB380086C3A5 /* AliyunEffectPrestoreManager.m in Sources */,
 				18E20FB6229BE7200086C3A5 /* AlivcBeautySettingUIDefine.m in Sources */,
 				1802152D229576E100FADEFA /* AlivcTabbarView.m in Sources */,
-				1802142D229576D700FADEFA /* AliyunCompositionPickCell.m in Sources */,
 				18021448229576D700FADEFA /* AliyunTimelineView.m in Sources */,
 				18021433229576D700FADEFA /* AliyunEffectFilterInfo.m in Sources */,
-				1802142B229576D700FADEFA /* AliyunCompositionInfo.m in Sources */,
 				18021523229576E100FADEFA /* AlivcTabbarBaseView.m in Sources */,
 				18E20FB4229BE7200086C3A5 /* _AlivcLiveBeautifySliderView.m in Sources */,
-				1802142C229576D700FADEFA /* AliyunCompositionCell.m in Sources */,
 				18021435229576D700FADEFA /* AliyunEffectMusicInfo.m in Sources */,
 				188C8C12229532AD00BEBD72 /* NSString+AlivcHelper.m in Sources */,
 				18021434229576D700FADEFA /* AliyunEffectInfo.m in Sources */,

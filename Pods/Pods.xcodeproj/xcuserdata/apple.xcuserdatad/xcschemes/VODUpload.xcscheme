@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "41D004DAB6E7FF0E738D24668C6E5B9D"
+               BlueprintIdentifier = "E6ADEB75C926E731D613BCD983C68B37"
                BuildableName = "VODUpload"
                BlueprintName = "VODUpload"
                ReferencedContainer = "container:Pods.xcodeproj">

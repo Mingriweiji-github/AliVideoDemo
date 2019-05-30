@@ -11,7 +11,7 @@
 #import "AlivcUIConfig.h"
 #import "AliyunRecordParamTableViewCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "AliyunCompositionViewController.h"
+//#import "AliyunCompositionViewController.h"
 #if SDK_VERSION == SDK_VERSION_BASE
 #import <AliyunVideoSDK/AliyunVideoSDK.h>
 #else
@@ -210,15 +210,15 @@
         [vc setValue:self forKey:@"delegate"];
         [self.navigationController pushViewController:vc animated:YES];
     }else {
-        AliyunCompositionViewController *targetVC = [[AliyunCompositionViewController alloc]init];
-        targetVC.compositionConfig = _mediaInfo;
-        if (self.videoOutputRatio == -1) {
-            targetVC.isOriginal = YES;
-        }else{
-            targetVC.isOriginal = NO;
-        }
-        
-        [self.navigationController pushViewController:targetVC animated:YES];
+//        AliyunCompositionViewController *targetVC = [[AliyunCompositionViewController alloc]init];
+//        targetVC.compositionConfig = _mediaInfo;
+//        if (self.videoOutputRatio == -1) {
+//            targetVC.isOriginal = YES;
+//        }else{
+//            targetVC.isOriginal = NO;
+//        }
+//        
+//        [self.navigationController pushViewController:targetVC animated:YES];
     }
 }
 
