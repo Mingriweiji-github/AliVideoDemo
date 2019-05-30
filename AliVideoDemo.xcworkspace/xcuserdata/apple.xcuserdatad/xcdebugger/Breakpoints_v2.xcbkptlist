@@ -260,7 +260,7 @@
                   moduleName = "AliVideoDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/dev/AliVideoDemo/AliVideoDemo/AlivcShortVideo/Common/Composition/AliyunCompositionViewController.m"
-                  timestampString = "580828309.710799"
+                  timestampString = "580889045.208589"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "504"
@@ -275,7 +275,7 @@
                   moduleName = "AliVideoDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/apple/Desktop/dev/AliVideoDemo/AliVideoDemo/AlivcShortVideo/Common/Composition/AliyunCompositionViewController.m"
-                  timestampString = "580828309.7124521"
+                  timestampString = "580889045.210356"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "505"
@@ -458,6 +458,22 @@
             startingLineNumber = "814"
             endingLineNumber = "814"
             landmarkName = "-recordButtonFinishVideo"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AliVideoDemo/AlivcShortVideo/VideoEdit/Controller/AliyunEditViewController.m"
+            timestampString = "580877589.562592"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "975"
+            endingLineNumber = "975"
+            landmarkName = "-publish"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
