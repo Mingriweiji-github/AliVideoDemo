@@ -950,7 +950,14 @@
 }
 #pragma mark 视频裁剪选择页
 - (void)photoButtonClicked {
-    //短视频裁剪选择页
+#warning AliyunPhotoViewController.m 和 👇 这些类必须手动添加到 Build setting-> Compile Souces中
+    /*Showing Recent Messages
+     :-1: Undefined symbol: _OBJC_CLASS_$_AliyunAlbumViewController
+     :-1: Undefined symbol: _OBJC_CLASS_$_AliyunCropViewController
+     :-1: Undefined symbol: _OBJC_CLASS_$_AliyunPhotoLibraryManager
+     :-1: Undefined symbol: _OBJC_CLASS_$_AliyunAssetModel
+     :-1: Undefined symbol: _OBJC_CLASS_$_AliyunPhotoListViewCell*/
+    
     UIViewController *vc = [[AliyunMediator shared] cropModule];// AliyunPhotoViewController
     [vc setValue:self.mediaConfig forKey:@"cutInfo"];
     [vc setValue:self forKey:@"delegate"];
