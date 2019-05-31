@@ -379,9 +379,7 @@ AliyunEffectTransitionViewDelegate, AlivcSpecialEffectViewDelegate ,AlivcAudioEf
     NSLog(@"编辑界面正常销毁");
 }
 
-/**
- 设置初始值
- */
+#pragma mark 设置特效滤镜初始值
 - (void)initBaseData {
     Class c = NSClassFromString(@"AliyunEffectPrestoreManager");
     NSObject *prestore = (NSObject *)[[c alloc] init];
