@@ -1409,6 +1409,8 @@
 			children = (
 				188C8BAB2295293800BEBD72 /* AppDelegate.h */,
 				188C8BAC2295293800BEBD72 /* AppDelegate.m */,
+				188C8BAE2295293800BEBD72 /* ViewController.h */,
+				188C8BAF2295293800BEBD72 /* ViewController.m */,
 				18B7152522978415006C62AB /* FilterResource.bundle */,
 				18B7190A22978416006C62AB /* QPSDK.bundle */,
 				18B7152622978415006C62AB /* ShortVideoResource */,
@@ -1565,8 +1567,6 @@
 		188C8FA722956DA700BEBD72 /* RecordController */ = {
 			isa = PBXGroup;
 			children = (
-				188C8BAE2295293800BEBD72 /* ViewController.h */,
-				188C8BAF2295293800BEBD72 /* ViewController.m */,
 				188C8D672295487700BEBD72 /* AliyunMagicCameraViewController.h */,
 				188C8D682295487700BEBD72 /* AliyunMagicCameraViewController.m */,
 				18E20FE2229BE90A0086C3A5 /* AliyunPhotoViewController.h */,

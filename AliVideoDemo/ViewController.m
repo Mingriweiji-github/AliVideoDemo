@@ -34,6 +34,16 @@
     [captureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:captureButton];
     [captureButton addTarget:self action:@selector(toRecordView) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *playViewButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 100, 100)];
+    playViewButton.backgroundColor = [UIColor greenColor];
+    [playViewButton setTitle:@"开始播放" forState:UIControlStateNormal];
+    [self.view addSubview:playViewButton];
+    [playViewButton addTarget:self action:@selector(jumpPlayView) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+- (void)jumpPlayView{
+    
 }
 /**
  进入录制界面
