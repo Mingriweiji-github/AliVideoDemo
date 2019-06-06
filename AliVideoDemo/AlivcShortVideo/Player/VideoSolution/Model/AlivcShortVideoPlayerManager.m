@@ -129,7 +129,8 @@
 - (void)addPlayList:(NSArray *)videos{
     [self.videos addObjectsFromArray:videos];
     for (AlivcQuVideoModel *video in videos) {
-        [self.listPlayer addVidSource:video.videoId uid:video.ID];
+//        [self.listPlayer addVidSource:video.videoId uid:video.ID];
+        [self.listPlayer addUrlSource:video.fileUrl uid:video.ID];
     }
 }
 

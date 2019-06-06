@@ -476,6 +476,7 @@ static NSString *CELLID = @"AlivcShortVideoCoverCell";
                                                              pageSize:self.page.pageSize  lastEndVideoId:self.lastVid
                                                               success:^(NSArray<AlivcQuVideoModel *> * _Nonnull videoList,
                                                                         NSInteger allVideoCount) {
+                                                                  NSLog(@"videoList=%@",videoList);
                                                                   
         [weakSelf dealWithData:videoList countNum:allVideoCount lastVideoId:weakSelf.lastVid];
                                                                   
@@ -534,12 +535,15 @@ static NSString *CELLID = @"AlivcShortVideoCoverCell";
 - (void)fetchedNewVideos:(NSArray<AlivcQuVideoModel *> *)videos {
     [self.playerManager stop];
     [self.playerManager clear];
-    [self.playerManager updateAccessId:self.accessKeyId accessKeySecret:self.accessKeySecret securityToken:self.securityToken region:self.region];
+    AlivcQuVideoModel *videoModel = videos.firstObject;
+    videoModel.fileUrl = @"https://kkm-video.oss-cn-beijing.aliyuncs.com/b8f80eb9-4148-46ac-a34b-3909be9e49b3.mp4";
+    AlivcQuVideoModel *secondModel = videos[1];
+    secondModel.fileUrl = @"https://kkm-video.oss-cn-beijing.aliyuncs.com/d2b3debd-eabb-4052-979d-09dc0b424840.mp4";
     [self.playerManager addPlayList:videos];
 }
 
 - (void)fetchedMoreVideos:(NSArray<AlivcQuVideoModel *> *)videos {
-    [self.playerManager updateAccessId:self.accessKeyId accessKeySecret:self.accessKeySecret securityToken:self.securityToken region:self.region];
+//    [self.playerManager updateAccessId:self.accessKeyId accessKeySecret:self.accessKeySecret securityToken:self.securityToken region:self.region];
     [self.playerManager addPlayList:videos];
 }
 

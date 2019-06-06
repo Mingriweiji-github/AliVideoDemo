@@ -164,12 +164,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AliVideoDemo/AlivcShortVideo/Player/VideoSolution/Control/AlivcShortVideoPlayViewController.m"
-            timestampString = "581495374.452015"
+            timestampString = "581499772.485429"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "535"
-            endingLineNumber = "535"
-            landmarkName = "-fetchedNewVideos:"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
+            landmarkName = "-loadMoreVideo"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AliVideoDemo/AlivcShortVideo/Player/VideoSolution/Control/AlivcShortVideoPlayViewController.m"
+            timestampString = "581499772.4858381"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "708"
+            endingLineNumber = "708"
+            landmarkName = "-saveToAblumWithPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AliVideoDemo/AlivcShortVideo/Player/VideoSolution/Control/AlivcShortVideoPlayViewController.m"
+            timestampString = "581499772.486118"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
+            landmarkName = "-fetchedMoreVideos:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

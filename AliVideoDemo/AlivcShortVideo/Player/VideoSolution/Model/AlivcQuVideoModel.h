@@ -51,6 +51,12 @@ typedef NS_ENUM(NSInteger,AlivcQuVideoAbstractionStatus){
 @property (strong, nonatomic, readonly) NSString *videoId;
 
 /**
+ 视频file地址
+ */
+@property (nonatomic, strong)NSString *fileUrl;
+
+
+/**
  视频描述
  */
 @property (strong, nonatomic, readonly) NSString *videoDescription;

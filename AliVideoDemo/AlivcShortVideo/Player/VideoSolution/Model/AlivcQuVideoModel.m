@@ -30,6 +30,7 @@
         _snapshotStatusString = dic[@"snapshotStatus"];
         _censorStatusString = dic[@"censorStatus"];
         _narrowTranscodeStatusString = dic[@"narrowTranscodeStatus"];
+        _fileUrl = dic[@"fileUrl"];
         NSDictionary *belongUserDic = dic[@"user"];
         if ([belongUserDic isKindOfClass:[NSDictionary class]]) {
             _belongUserId = belongUserDic[@"userId"];
