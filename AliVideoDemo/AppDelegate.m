@@ -21,10 +21,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    AliBaseNavigationController *nav = [[AliBaseNavigationController alloc] initWithRootViewController:[ViewController new]];
-    [self setBaseNavigationBar:nav];
     
-    self.window.rootViewController = nav;
+    //以下为录制
+//    AliBaseNavigationController *nav = [[AliBaseNavigationController alloc] initWithRootViewController:[ViewController new]];
+//    [self setBaseNavigationBar:nav];
+//
+//    self.window.rootViewController = nav;
+    
+    //以下为播放
+    [AlivcImage setImageBundleName:@"AlivcShortVideoImage"];
+    UIViewController *vc_root = [[NSClassFromString(@"AlivcShortVideoQuHomeTabBarController") alloc]init];
+    UINavigationController *nav_root = [[UINavigationController alloc]initWithRootViewController:vc_root];
+    self.window.rootViewController = nav_root;
+    
     [self.window makeKeyAndVisible];
     self.window.backgroundColor = [UIColor whiteColor];
     return YES;

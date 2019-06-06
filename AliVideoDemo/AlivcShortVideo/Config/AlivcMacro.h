@@ -42,6 +42,7 @@
 #define SafeBeautyBottom (([[UIScreen mainScreen] bounds].size.height<812) ? 0 : 12)
 #define StatusBarHeight (([[UIScreen mainScreen] bounds].size.height<812) ? 20 : 44)
 #define NoStatusBarSafeTop (IS_IPHONEX ? 44 : 0)
+#define KquTabBarHeight  (IS_IPHONEX ? 100 : 0)
 
 //#define SafeAreaTop \
 //^double(){\

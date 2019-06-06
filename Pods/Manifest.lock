@@ -17,57 +17,40 @@ PODS:
   - AlivcConan (0.9.2):
     - AlivcConan/AlivcConan (= 0.9.2)
   - AlivcConan/AlivcConan (0.9.2)
-  - AliyunOSSiOS (2.10.7)
-  - AliyunVideoSDKPro (3.9.0)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - JSONModel (1.7.0)
   - MBProgressHUD (1.1.0)
-  - QuCore-ThirdParty (3.8.0)
   - SDWebImage (4.4.6):
     - SDWebImage/Core (= 4.4.6)
   - SDWebImage/Core (4.4.6)
-  - VODUpload (1.5.1):
-    - AliyunOSSiOS
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - AlivcConan
-  - AliyunOSSiOS
-  - AliyunVideoSDKPro
   - FMDB (~> 2.5)
   - JSONModel (~> 1.7.0)
   - MBProgressHUD
-  - QuCore-ThirdParty
   - SDWebImage (~> 4.0)
-  - VODUpload
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - AlivcConan
-    - AliyunOSSiOS
-    - AliyunVideoSDKPro
     - FMDB
     - JSONModel
     - MBProgressHUD
-    - QuCore-ThirdParty
     - SDWebImage
-    - VODUpload
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   AlivcConan: 4cb3ff2d6bc81fda833eefa5a2ff6488975c344b
-  AliyunOSSiOS: 602b6a4e70e62a5f0a6431c20496343141d7e66f
-  AliyunVideoSDKPro: 0cad2b03027f8c8d510c91b3071094f06708b3e7
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   JSONModel: 840bc0fcffb24b8454d2c026bf26fea454b8e98d
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
-  QuCore-ThirdParty: 4856aa9d5b642fc6ae9375c5c8f9c760f5051142
   SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
-  VODUpload: d180069b5fcee002079a892de2f310bacdb8e355
 
-PODFILE CHECKSUM: 17868e2b4ddcfde972d108c5ef2627841b3657dc
+PODFILE CHECKSUM: 07deb3ee6797942820ac54900308edd62526747e
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.1

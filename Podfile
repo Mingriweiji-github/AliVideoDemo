@@ -2,10 +2,10 @@ platform :ios, ‘8.0'
 use_frameworks!
 target 'AliVideoDemo' do
 
-pod 'AliyunVideoSDKPro'
-pod 'QuCore-ThirdParty'
-pod 'VODUpload'
-pod 'AliyunOSSiOS'
+#pod 'AliyunVideoSDKPro'
+#pod 'QuCore-ThirdParty'
+#pod 'VODUpload'
+#pod 'AliyunOSSiOS'
 pod 'AlivcConan'
 
 pod 'MBProgressHUD'
