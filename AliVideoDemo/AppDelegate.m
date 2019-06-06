@@ -25,7 +25,6 @@
     //以下为录制
 //    AliBaseNavigationController *nav = [[AliBaseNavigationController alloc] initWithRootViewController:[ViewController new]];
 //    [self setBaseNavigationBar:nav];
-//
 //    self.window.rootViewController = nav;
     
     //以下为播放
